@@ -1,0 +1,141 @@
+form {
+  position: absolute;
+  backdrop-filter: blur(17px) saturate(180%);
+  -webkit-backdrop-filter: blur(17px) saturate(180%);
+  background-color: rgba(115, 1, 46, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  max-width: 25%;
+  height: 85%;
+  animation: form-transition 0.8s ease-out 6s forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+
+input:active,
+input:focus {
+  border-color: #180113;
+  outline: none;
+}
+
+button {
+  background-color: #180113;
+  opacity: 0.7;
+}
+
+button:hover,
+button:focus {
+  opacity: 1;
+}
+
+span:hover {
+  color: #180113;
+  cursor: pointer;
+}
+
+.splash-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  vertical-align: auto;
+  color: white;
+  background: linear-gradient(320.54deg, #00069f 0%, #120010 72.37%),
+    linear-gradient(58.72deg, #69d200 0%, #970091 100%),
+    linear-gradient(121.28deg, #8cff18 0%, #6c0075 100%),
+    linear-gradient(121.28deg, #8000ff 0%, #000000 100%),
+    linear-gradient(180deg, #00ff19 0%, #24ff00 0.01%, #2400ff 100%),
+    linear-gradient(52.23deg, #0500ff 0%, #ff0000 100%),
+    linear-gradient(121.28deg, #32003a 0%, #ff4040 100%),
+    radial-gradient(50% 72.12% at 50% 50%, #eb00ff 0%, #110055 100%);
+  background-blend-mode: screen, color-dodge, color-burn, screen, overlay,
+    difference, color-dodge, normal;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Nunito", sans-serif;
+  font-family: "Permanent Marker", cursive;
+  overflow-y: hidden;
+}
+
+.splash-screen .app-title {
+  font-size: 4em;
+  animation: title-transition 0.7s ease-in 2s forwards;
+}
+
+.splash-screen .app-logo {
+  visibility: hidden;
+  position: absolute;
+  opacity: 0;
+  animation: logo-transition 3s ease-out 3s forwards;
+  width: 25%;
+}
+.form-title {
+  font-size: 4em;
+}
+
+.form-logo {
+  width: 60%;
+}
+
+.icon {
+  position: absolute;
+  top: 72%;
+  right: 22%;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+@keyframes title-transition {
+  100% {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
+    font-size: 8rem;
+  }
+}
+
+@keyframes logo-transition {
+  75% {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 2s linear;
+    width: 25%;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
+    width: 70%;
+  }
+}
+@keyframes form-transition {
+  100% {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 2s linear;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  form {
+    min-width: 75%;
+    margin: 12.5%;
+  }
+
+  .splash-screen {
+    align-items: flex-start;
+  }
+
+  .splash-screen .app-title {
+    margin: 70% 0;
+  }
+
+  .splash-screen .app-logo {
+    margin: 60% 0;
+  }
+
+  .icon {
+    top: 71%;
+  }
+}
