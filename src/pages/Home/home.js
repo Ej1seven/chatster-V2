@@ -136,7 +136,7 @@ const Home = () => {
           onChange={handleImageChange}
         ></input>
         <i
-          className="fas fa-edit pl-40 absolute mt-10 text-xl edit-photo-button"
+          className="fas fa-edit pl-44 absolute mt-20 text-xl edit-photo-button"
           onClick={handleEditPicture}
         ></i>
         <p className="text-3xl mt-6 font-semibold">{displayName}</p>

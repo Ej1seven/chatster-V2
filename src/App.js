@@ -94,17 +94,17 @@ function App() {
         console.log(id);
         // console.log(photoIds[0]);
       });
-    client.connectUser(
-      {
-        id: id,
-        name: displayName,
-        fullName: `${firstName} ${lastName}`,
-        image: profileUrlFinal,
-        hashedPassword: password,
-        phoneNumber: phoneNumber,
-      },
-      token
-    );
+    // client.connectUser(
+    //   {
+    //     id: id,
+    //     name: displayName,
+    //     fullName: `${firstName} ${lastName}`,
+    //     image: profileUrlFinal,
+    //     hashedPassword: password,
+    //     phoneNumber: phoneNumber,
+    //   },
+    //   token
+    // );
   }
 
   return (

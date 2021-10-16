@@ -14,7 +14,11 @@ const SideBar = ({ logout }) => (
     </div>
     <div className="channel-list__sidebar__icon2">
       <div className="icon1__inner" onClick={logout}>
-        <i class="fas fa-sign-out-alt" alt="Logout" width="30"></i>
+        <i
+          class="fas fa-sign-out-alt fa-lg sign-out_button"
+          alt="Logout"
+          width="30"
+        ></i>
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@
     "@craco/craco": "^6.3.0",
     "@emotion/react": "^11.4.1",
     "@firebase/storage": "^0.8.3",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
     "@reduxjs/toolkit": "^1.6.2",
