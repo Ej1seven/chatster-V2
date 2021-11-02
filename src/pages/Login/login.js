@@ -122,7 +122,7 @@ const Login = () => {
             console.log(userProfile);
             username = userProfile.displayName;
             handleIdChanged(userId);
-            fetch("http://localhost:5000/auth/login", {
+            fetch("https://chatster-backend.herokuapp.com/auth/login", {
               method: "post",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({

@@ -98,7 +98,7 @@ const Register = () => {
         });
       }
     });
-    fetch("http://localhost:5000/auth/signup", {
+    fetch("https://chatster-backend.herokuapp.com/auth/signup", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
