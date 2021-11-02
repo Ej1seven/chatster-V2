@@ -53,6 +53,48 @@ const authenticationSlice = createSlice({
   },
 });
 
+const initialGetStreamState = {
+  streamToken: null,
+  streamUserId: "",
+  username: "",
+  fullName: "",
+  avatarURL: "",
+  phoneNumber: "",
+  hashedPassword: "",
+  password: "",
+};
+
+const getStreamSlice = createSlice({
+  name: "stream",
+  initialState: initialGetStreamState,
+  reducers: {
+    streamToken(state, action) {
+      state.streamToken = action.payload;
+    },
+    streamUserId(state, action) {
+      state.streamUserId = action.payload;
+    },
+    username(state, action) {
+      state.username = action.payload;
+    },
+    fullName(state, action) {
+      state.fullName = action.payload;
+    },
+    avatarURL(state, action) {
+      state.avatarURL = action.payload;
+    },
+    phoneNumber(state, action) {
+      state.phoneNumber = action.payload;
+    },
+    hashedPassword(state, action) {
+      state.hashedPassword = action.payload;
+    },
+    password(state, action) {
+      state.password = action.payload;
+    },
+  },
+});
+
 const initialLoadingState = { showLoadingIcon: false };
 
 const loadingSlice = createSlice({
@@ -118,6 +160,28 @@ const formInputSlice = createSlice({
   },
 });
 
+const initialGetStreamChannelState = {
+  createType: "",
+  isCreating: false,
+  isEditing: false,
+};
+
+const getStreamChannelSlice = createSlice({
+  name: "channel",
+  initialState: initialGetStreamChannelState,
+  reducers: {
+    createType(state, action) {
+      state.createType = action.payload;
+    },
+    isCreating(state, action) {
+      state.isCreating = !state.isCreating;
+    },
+    isEditing(state, action) {
+      state.isEditing = !state.isEditing;
+    },
+  },
+});
+
 const store = configureStore({
   reducer: {
     show: showSlice.reducer,
@@ -125,6 +189,8 @@ const store = configureStore({
     load: loadingSlice.reducer,
     authenticate: authenticationSlice.reducer,
     uploadImage: uploadImageSlice.reducer,
+    stream: getStreamSlice.reducer,
+    channel: getStreamChannelSlice.reducer,
   },
 });
 
@@ -133,5 +199,7 @@ export const formActions = formInputSlice.actions;
 export const loadingActions = loadingSlice.actions;
 export const authenticationActions = authenticationSlice.actions;
 export const uploadImageActions = uploadImageSlice.actions;
+export const getStreamActions = getStreamSlice.actions;
+export const getStreamChannelActions = getStreamChannelSlice.actions;
 
 export default store;

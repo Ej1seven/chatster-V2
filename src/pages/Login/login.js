@@ -1,10 +1,18 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { showActions, formActions, authenticationActions } from "../../store";
+import {
+  showActions,
+  formActions,
+  authenticationActions,
+  getStreamActions,
+} from "../../store";
+import Cookies from "universal-cookie";
 import logo from "../../photos/logo-white.png";
 import Register from "../Register/register";
 import "./login.css";
+
+const cookies = new Cookies();
 
 const Login = () => {
   let history = useHistory();
@@ -14,6 +22,16 @@ const Login = () => {
   const email = useSelector((state) => state.form.email);
   const password = useSelector((state) => state.form.password);
   const token = useSelector((state) => state.authenticate.token);
+  const id = useSelector((state) => state.form.id);
+  const streamToken = useSelector((state) => state.stream.streamToken);
+  const userId = useSelector((state) => state.stream.streamUserId);
+  const streamUsername = useSelector((state) => state.stream.username);
+  const fullName = useSelector((state) => state.stream.fullName);
+  const avatarURL = useSelector((state) => state.stream.avatarURL);
+  const streamPhoneNumber = useSelector((state) => state.stream.phoneNumber);
+  const hashedPassword = useSelector((state) => state.stream.hashedPassword);
+  const streamPassword = useSelector((state) => state.stream.password);
+  let username = "";
 
   const showHandler = () => {
     dispatch(showActions.showModal());
@@ -29,6 +47,33 @@ const Login = () => {
   };
   const tokenHandler = (token) => {
     dispatch(authenticationActions.token(token));
+  };
+  const streamTokenHandler = (streamToken) => {
+    dispatch(getStreamActions.streamToken(streamToken));
+  };
+  const streamUserIdHandler = (streamUserId) => {
+    dispatch(getStreamActions.streamUserId(streamUserId));
+  };
+  const usernameHandler = (username) => {
+    dispatch(getStreamActions.username(username));
+  };
+  const fullNameHandler = (fullName) => {
+    dispatch(getStreamActions.fullName(fullName));
+  };
+  const avatarURLHandler = (avatarURL) => {
+    dispatch(getStreamActions.avatarURL(avatarURL));
+  };
+  const phoneNumberHandler = (phoneNumber) => {
+    dispatch(getStreamActions.phoneNumber(phoneNumber));
+  };
+  const hashedPasswordHandler = (hashedPassword) => {
+    dispatch(getStreamActions.hashedPassword(hashedPassword));
+  };
+  const passwordHandler = (password) => {
+    dispatch(getStreamActions.password(password));
+  };
+  const handleIdChanged = (e) => {
+    dispatch(formActions.id(e));
   };
 
   const submit = (event) => {
@@ -63,10 +108,65 @@ const Login = () => {
       })
       .then((data) => {
         tokenHandler(data.idToken);
-        history.replace("/");
-      })
-      .catch((err) => {
-        alert(err.message);
+        fetch(
+          "https://chat-application-db-default-rtdb.firebaseio.com/profile.json"
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            let users = Object.entries(data).map((key) => {
+              return key;
+            });
+            let user = users.filter((user) => user[1].email === email);
+            let userProfile = user[0][1];
+            let userId = user[0][0];
+            console.log(userProfile);
+            username = userProfile.displayName;
+            handleIdChanged(userId);
+            fetch("http://localhost:5000/auth/login", {
+              method: "post",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                username: username,
+                password: password,
+              }),
+            })
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                console.log(data);
+                cookies.set("streamToken", data.token);
+                cookies.set("streamUserId", data.userId);
+                cookies.set("username", data.username);
+                cookies.set("fullName", data.fullName);
+                cookies.set("avatarURL", data.avatarURL);
+                cookies.set("phoneNumber", data.phoneNumber);
+                cookies.set("hashedPassword", data.hashedPassword);
+                cookies.set("password", data.password);
+                if (!userProfile.getStream) {
+                  fetch(
+                    `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/getStream.json`,
+                    {
+                      method: "post",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        streamToken: data.token,
+                        streamUserId: data.userId,
+                        username: data.username,
+                        fullName: data.fullName,
+                        avatarURL: data.avatarURL,
+                        phoneNumber: data.phoneNumber,
+                        hashedPassword: data.hashedPassword,
+                        password: data.password,
+                      }),
+                    }
+                  );
+                }
+              });
+            setTimeout(function () {
+              history.replace("/");
+            }, 3000);
+          });
       });
   };
 

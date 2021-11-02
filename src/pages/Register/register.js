@@ -1,8 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { formActions, loadingActions } from "../../store";
+import {
+  formActions,
+  loadingActions,
+  authenticationActions,
+} from "../../store";
 import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 const Register = () => {
   const override = css`
@@ -38,6 +45,12 @@ const Register = () => {
   };
   const handlePhoneNumberChanged = (e) => {
     dispatch(formActions.phoneNumber(e.target.value));
+  };
+  const handleStreamChatToken = (e) => {
+    dispatch(authenticationActions.streamToken(e));
+  };
+  const handleIdChanged = (e) => {
+    dispatch(formActions.id(e));
   };
 
   const submit = (event) => {
@@ -85,20 +98,35 @@ const Register = () => {
         });
       }
     });
-    // const URL = "https://localhost:5000/auth/signup";
-    // fetch("https://localhost:5000/auth/signup", {
-    //   method: "post",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     username: displayName,
-    //     password: password,
-    //     fullName: `${firstName} ${lastName}`,
-    //     phoneNumber: phoneNumber,
-    //     avatarURL: "",
-    //   }),
-    // }).then((response) => {
-    //   console.log(response);
-    // });
+    fetch("http://localhost:5000/auth/signup", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: displayName,
+        password: password,
+        fullName: `${firstName} ${lastName}`,
+        phoneNumber: phoneNumber,
+        avatarURL: "",
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        console.log(data.token);
+        cookies.set("streamToken", data.token);
+        cookies.set("streamUserId", data.userId);
+        cookies.set("username", displayName);
+        cookies.set("fullName", `${firstName} ${lastName}`);
+        cookies.set("avatarURL", "");
+        cookies.set("phoneNumber", phoneNumber);
+        cookies.set("hashedPassword", data.hashedPassword);
+        cookies.set("password", password);
+      });
+    setTimeout(function () {
+      window.location.reload();
+    }, 3000);
   };
 
   return (

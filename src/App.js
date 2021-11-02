@@ -1,14 +1,29 @@
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "../src/pages/Login/login";
 import Home from "../src/pages/Home/home";
 import Header from "./components/Header/header";
 import { useSelector, useDispatch, connect } from "react-redux";
-import { formActions, uploadImageActions } from "./store/index";
+import {
+  formActions,
+  uploadImageActions,
+  getStreamActions,
+  getStreamChannelActions,
+} from "./store/index";
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
 import Cookies from "universal-cookie";
 import { ChannelContainer, ChannelListContainer } from "./components/Channel";
 import "./App.css";
+import "stream-chat-react/dist/css/index.css";
+
+const apiKey = "khvc6fsuwcd3";
+
+const client = StreamChat.getInstance(apiKey);
+
+const cookies = new Cookies();
+
+const authToken = cookies.get("streamToken");
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +40,16 @@ function App() {
   const firstName = useSelector((state) => state.form.firstName);
   const lastName = useSelector((state) => state.form.lastName);
   const password = useSelector((state) => state.form.password);
+  const streamToken = useSelector((state) => state.stream.streamToken);
+  const userId = useSelector((state) => state.stream.streamUserId);
+  const username = useSelector((state) => state.stream.username);
+  const fullName = useSelector((state) => state.stream.fullName);
+  const avatarURL = useSelector((state) => state.stream.avatarURL);
+  const streamPhoneNumber = useSelector((state) => state.stream.phoneNumber);
+  const hashedPassword = useSelector((state) => state.stream.hashedPassword);
+  const isCreating = useSelector((state) => state.channel.isCreating);
+  const isEditing = useSelector((state) => state.channel.isEditing);
+  const createType = useSelector((state) => state.channel.createType);
 
   const isLoggedIn = !!token;
   const handleDisplayNameChanged = (e) => {
@@ -51,11 +76,39 @@ function App() {
   const handleProfileCount = (e) => {
     dispatch(uploadImageActions.photoCount(e));
   };
-
-  const apiKey = "khvc6fsuwcd3";
-
-  const client = StreamChat.getInstance(apiKey);
-  const serverClient = connect();
+  const streamTokenHandler = (streamToken) => {
+    dispatch(getStreamActions.streamToken(streamToken));
+  };
+  const streamUserIdHandler = (streamUserId) => {
+    dispatch(getStreamActions.streamUserId(streamUserId));
+  };
+  const usernameHandler = (username) => {
+    dispatch(getStreamActions.username(username));
+  };
+  const fullNameHandler = (fullName) => {
+    dispatch(getStreamActions.fullName(fullName));
+  };
+  const avatarURLHandler = (avatarURL) => {
+    dispatch(getStreamActions.avatarURL(avatarURL));
+  };
+  const phoneNumberHandler = (phoneNumber) => {
+    dispatch(getStreamActions.phoneNumber(phoneNumber));
+  };
+  const hashedPasswordHandler = (hashedPassword) => {
+    dispatch(getStreamActions.hashedPassword(hashedPassword));
+  };
+  const passwordHandler = (password) => {
+    dispatch(getStreamActions.password(password));
+  };
+  const createTypeHandler = (createType) => {
+    dispatch(getStreamChannelActions.createType(createType));
+  };
+  const isCreatingHandler = () => {
+    dispatch(getStreamChannelActions.isCreating());
+  };
+  const isEditingHandler = () => {
+    dispatch(getStreamChannelActions.isEditing());
+  };
 
   if (isLoggedIn) {
     console.log(token);
@@ -70,6 +123,21 @@ function App() {
         let user = users.filter((user) => user[1].email === email);
         let userProfile = user[0][1];
         let userId = user[0][0];
+        let getStream = user[0][1].getStream;
+        console.log(getStream);
+        if (getStream) {
+          let getStreamData = Object.entries(getStream).map((key) => {
+            return key;
+          });
+          console.log(getStreamData[0][1].fullName);
+          streamTokenHandler(getStreamData[0][1].streamToken);
+          streamUserIdHandler(getStreamData[0][1].streamUserId);
+          usernameHandler(getStreamData[0][1].username);
+          fullNameHandler(getStreamData[0][1].fullName);
+          avatarURLHandler(getStreamData[0][1].fullName);
+          phoneNumberHandler(getStreamData[0][1].phoneNumber);
+          hashedPasswordHandler(getStreamData[0][1].hashedPassword);
+        }
         let photoUrl;
         let photoIds = [];
         let count = 0;
@@ -91,20 +159,20 @@ function App() {
         handleProfileId(photoIds[0]);
         handleProfileIds(photoIds);
         handleProfileCount(count);
-        console.log(id);
-        // console.log(photoIds[0]);
       });
-    // client.connectUser(
-    //   {
-    //     id: id,
-    //     name: displayName,
-    //     fullName: `${firstName} ${lastName}`,
-    //     image: profileUrlFinal,
-    //     hashedPassword: password,
-    //     phoneNumber: phoneNumber,
-    //   },
-    //   token
-    // );
+    if (authToken) {
+      client.connectUser(
+        {
+          id: cookies.get("streamUserId"),
+          name: cookies.get("username"),
+          fullName: cookies.get("fullName"),
+          image: cookies.get("avatarURL"),
+          hashedPassword: cookies.get("hashedPassword"),
+          phoneNumber: cookies.get("phoneNumber"),
+        },
+        authToken
+      );
+    }
   }
 
   return (
@@ -112,8 +180,19 @@ function App() {
       {isLoggedIn && <Header />}
       {isLoggedIn && (
         <Chat client={client} theme="team light">
-          <ChannelListContainer></ChannelListContainer>
-          <ChannelContainer></ChannelContainer>
+          <ChannelListContainer
+            isCreating={isCreating}
+            setIsCreating={isCreatingHandler}
+            setCreateType={createTypeHandler}
+            setIsEditing={isEditingHandler}
+          ></ChannelListContainer>
+          <ChannelContainer
+            isCreating={isCreating}
+            setIsCreating={isCreatingHandler}
+            isEditing={isEditing}
+            setIsEditing={isEditingHandler}
+            createType={createType}
+          ></ChannelContainer>
         </Chat>
       )}
       <Switch>
