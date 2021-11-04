@@ -107,7 +107,11 @@ const loadingSlice = createSlice({
   },
 });
 
-const initialShowState = { showModal: false, passwordIcon: false };
+const initialShowState = {
+  showModal: false,
+  passwordIcon: false,
+  displayComponent: true,
+};
 
 const showSlice = createSlice({
   name: "show",
@@ -118,6 +122,9 @@ const showSlice = createSlice({
     },
     passwordIcon(state) {
       state.passwordIcon = !state.passwordIcon;
+    },
+    displayComponent(state) {
+      state.displayComponent = !state.displayComponent;
     },
   },
 });

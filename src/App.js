@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "../src/pages/Login/login";
 import Home from "../src/pages/Home/home";
@@ -9,6 +9,7 @@ import {
   uploadImageActions,
   getStreamActions,
   getStreamChannelActions,
+  authenticationActions,
 } from "./store/index";
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
@@ -50,6 +51,7 @@ function App() {
   const isCreating = useSelector((state) => state.channel.isCreating);
   const isEditing = useSelector((state) => state.channel.isEditing);
   const createType = useSelector((state) => state.channel.createType);
+  const display = useSelector((state) => state.show.displayComponent);
 
   const isLoggedIn = !!token;
   const handleDisplayNameChanged = (e) => {
@@ -109,6 +111,22 @@ function App() {
   const isEditingHandler = () => {
     dispatch(getStreamChannelActions.isEditing());
   };
+  const tokenHandler = (token) => {
+    dispatch(authenticationActions.token(token));
+  };
+  const handleEmailChanged = (e) => {
+    dispatch(formActions.email(e));
+  };
+
+  useEffect(() => {
+    let isUserLogin = localStorage.getItem("userIsLoggedIn");
+    let email = localStorage.getItem("email");
+    console.log(isUserLogin);
+    if (isUserLogin) {
+      handleEmailChanged(email);
+      tokenHandler(isUserLogin);
+    }
+  }, [token]);
 
   if (isLoggedIn) {
     console.log(token);
@@ -186,19 +204,21 @@ function App() {
             setCreateType={createTypeHandler}
             setIsEditing={isEditingHandler}
           ></ChannelListContainer>
-          <ChannelContainer
-            isCreating={isCreating}
-            setIsCreating={isCreatingHandler}
-            isEditing={isEditing}
-            setIsEditing={isEditingHandler}
-            createType={createType}
-          ></ChannelContainer>
+          {display && (
+            <ChannelContainer
+              isCreating={isCreating}
+              setIsCreating={isCreatingHandler}
+              isEditing={isEditing}
+              setIsEditing={isEditingHandler}
+              createType={createType}
+            ></ChannelContainer>
+          )}
         </Chat>
       )}
       <Switch>
         <Route path="/">
           {!isLoggedIn && <Login />}
-          {isLoggedIn && <Home />}
+          {isLoggedIn && display && <Home />}
         </Route>
       </Switch>
     </div>
