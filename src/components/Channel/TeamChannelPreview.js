@@ -1,5 +1,7 @@
 import React from "react";
 import { Avatar, useChatContext } from "stream-chat-react";
+import { useDispatch } from "react-redux";
+import { showActions } from "../../store/index";
 
 const TeamChannelPreview = ({
   setActiveChannel,
@@ -8,8 +10,14 @@ const TeamChannelPreview = ({
   channel,
   type,
   setToggleContainer,
+  closeSidebar,
 }) => {
   const { channel: activeChannel, client } = useChatContext();
+  const dispatch = useDispatch();
+
+  const removeHomeDisplay = () => {
+    dispatch(showActions.displayHome(false));
+  };
 
   const ChannelPreview = () => (
     <p className="channel-preview__item">
@@ -51,6 +59,8 @@ const TeamChannelPreview = ({
         if (setToggleContainer) {
           setToggleContainer((prevState) => !prevState);
         }
+        removeHomeDisplay();
+        closeSidebar();
       }}
     >
       {type === "team" ? <ChannelPreview /> : <DirectPreview />}

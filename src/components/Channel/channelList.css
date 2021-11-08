@@ -54,18 +54,33 @@
   flex-direction: column;
   background: rgba(255, 255, 255, 0.664);
   width: 100%;
+  color: rgba(255, 255, 255, 0.66);
 }
 
 .channel-list__header {
-  padding-left: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding-left: 16px; */
   height: 62px;
+  width: 100%;
 }
 
 .channel-list__header__text {
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  width: 90%;
+}
+.channel-list__header__text p {
+  text-align: center;
+}
+
+.icon-container {
+  width: 10%;
+  text-align: right;
+  margin-right: 5%;
 }
 /*remember to remove display none */
 .sidebar-container {
@@ -136,6 +151,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  /* color: #110118; */
 }
 
 .team-channel-list__message {
@@ -158,8 +174,16 @@
 }
 
 .team-channel-list__header__title {
-  font-size: 13px;
-  line-height: 16px;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  height: 16px;
+  color: rgba(255, 255, 255, 0.66);
+  margin-bottom: 10px;
+}
+
+.team-channel-list__header__title {
+  font-size: 1.2rem;
+  line-height: 1.2rem;
   height: 16px;
   color: rgba(255, 255, 255, 0.66);
   margin-bottom: 10px;
@@ -627,9 +651,20 @@
 }
 
 .fa-window-close {
-  position: absolute;
-  margin: 5% 0% 0% 25%;
+  /* position: absolute; */
+
   color: #110118;
+  margin: 2% 0% 0% 5%;
+}
+
+.str-chat {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.connection-list-text {
+  color: #110118;
+  margin-left: 5%;
 }
 
 @media screen and (max-width: 960px) {

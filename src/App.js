@@ -52,6 +52,7 @@ function App() {
   const isEditing = useSelector((state) => state.channel.isEditing);
   const createType = useSelector((state) => state.channel.createType);
   const display = useSelector((state) => state.show.displayComponent);
+  const displayHome = useSelector((state) => state.show.displayHome);
 
   const isLoggedIn = !!token;
   const handleDisplayNameChanged = (e) => {
@@ -218,7 +219,7 @@ function App() {
       <Switch>
         <Route path="/">
           {!isLoggedIn && <Login />}
-          {isLoggedIn && display && <Home />}
+          {isLoggedIn && display && displayHome && <Home />}
         </Route>
       </Switch>
     </div>

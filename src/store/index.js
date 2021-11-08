@@ -111,6 +111,7 @@ const initialShowState = {
   showModal: false,
   passwordIcon: false,
   displayComponent: true,
+  displayHome: true,
 };
 
 const showSlice = createSlice({
@@ -125,6 +126,9 @@ const showSlice = createSlice({
     },
     displayComponent(state) {
       state.displayComponent = !state.displayComponent;
+    },
+    displayHome(state, action) {
+      state.displayHome = action.payload;
     },
   },
 });

@@ -31,10 +31,13 @@ const SideBar = ({ logout }) => (
 
 const CompanyHeader = ({ closeSidebar }) => (
   <div className="channel-list__header">
-    <p className="channel-list__header__text">
-      Medical Pager
+    <div className="channel-list__header__text">
+      {" "}
+      <p>Connections</p>
+    </div>
+    <div className="icon-container">
       <i class="far fa-window-close fa-2x" onClick={closeSidebar}></i>
-    </p>
+    </div>
   </div>
 );
 
@@ -122,6 +125,7 @@ const ChannelListContent = ({
                 setIsCreating={setIsCreating}
                 setIsEditing={setIsEditing}
                 setToggleContainer={setToggleContainer}
+                closeSidebar={closeSidebar}
               />
             )}
           />
@@ -146,6 +150,7 @@ const ChannelListContent = ({
                 setToggleContainer={setToggleContainer}
                 setIsCreating={setIsCreating}
                 setIsEditing={setIsEditing}
+                closeSidebar={closeSidebar}
               />
             )}
           />
