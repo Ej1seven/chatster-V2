@@ -18,7 +18,7 @@ import { ChannelContainer, ChannelListContainer } from "./components/Channel";
 import "./App.css";
 import "stream-chat-react/dist/css/index.css";
 
-const apiKey = "khvc6fsuwcd3";
+const apiKey = "yzq768xf9r3a";
 
 const client = StreamChat.getInstance(apiKey);
 

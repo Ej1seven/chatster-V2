@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import { authenticationActions, showActions } from "../../store/index";
+import { StreamChat } from "stream-chat";
 import Cookies from "universal-cookie";
 import { ChannelSearch, TeamChannelList, TeamChannelPreview } from "./";
 import logo from "../../photos/logo-black-min.png";
@@ -63,6 +64,8 @@ const ChannelListContent = ({
   };
 
   const logout = () => {
+    const apiKey = "yzq768xf9r3a";
+    const client = StreamChat.getInstance(apiKey);
     // cookies.remove("streamToken");
     // cookies.remove("streamUserId");
     // cookies.remove("username");
@@ -74,6 +77,7 @@ const ChannelListContent = ({
     removeToken();
     localStorage.removeItem("userIsLoggedIn");
     localStorage.removeItem("email");
+    client.disconnectUser();
     window.location.reload();
   };
 

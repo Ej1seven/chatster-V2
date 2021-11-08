@@ -282,6 +282,7 @@
 
 .str-chat-channel {
   height: 100%;
+  width: 100%;
 }
 
 .str-chat__load-more-button {
@@ -629,4 +630,19 @@
   position: absolute;
   margin: 5% 0% 0% 25%;
   color: #110118;
+}
+
+@media screen and (max-width: 960px) {
+  .channel-list__list__wrapper {
+    height: 95%;
+  }
+  .str-chat-channel-list.team {
+    position: relative !important;
+    min-height: 0 !important;
+    left: 0 !important;
+  }
+  .str-chat {
+    height: 40% !important;
+    /* width: 100% !important; */
+  }
 }
