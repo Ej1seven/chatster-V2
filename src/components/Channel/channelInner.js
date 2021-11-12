@@ -120,9 +120,11 @@ const TeamChannelHeader = ({ setIsEditing }) => {
     <div className="team-channel-header__container">
       <MessagingHeader />
       <div className="team-channel-header__right">
-        <p className="team-channel-header__right-text">
-          {getWatcherText(watcher_count)}
-        </p>
+        <div>
+          <p className="team-channel-header__right-text">
+            {getWatcherText(watcher_count)}
+          </p>
+        </div>
       </div>
     </div>
   );

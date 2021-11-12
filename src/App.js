@@ -106,8 +106,8 @@ function App() {
   const createTypeHandler = (createType) => {
     dispatch(getStreamChannelActions.createType(createType));
   };
-  const isCreatingHandler = () => {
-    dispatch(getStreamChannelActions.isCreating());
+  const isCreatingHandler = (value) => {
+    dispatch(getStreamChannelActions.isCreating(value));
   };
   const isEditingHandler = () => {
     dispatch(getStreamChannelActions.isEditing());
@@ -219,7 +219,7 @@ function App() {
       <Switch>
         <Route path="/">
           {!isLoggedIn && <Login />}
-          {isLoggedIn && display && displayHome && <Home />}
+          {isLoggedIn && displayHome && <Home />}
         </Route>
       </Switch>
     </div>

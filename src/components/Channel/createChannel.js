@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { useChatContext } from "stream-chat-react";
+import { showActions } from "../../store/index";
+import { useDispatch } from "react-redux";
+
 import { UserList } from "./";
 
-const CloseCreateChannel = ({ setIsCreating, setIsEditing }) => (
+const CloseCreateChannel = ({
+  setIsCreating,
+  setIsEditing,
+  toggleDisplay,
+  homeDisplay,
+}) => (
   <svg
     width="32"
     height="32"
@@ -12,6 +20,8 @@ const CloseCreateChannel = ({ setIsCreating, setIsEditing }) => (
     onClick={() => {
       if (setIsCreating) setIsCreating(false);
       if (setIsEditing) setIsEditing(false);
+      toggleDisplay(false);
+      homeDisplay(true);
     }}
   >
     <path
@@ -46,7 +56,13 @@ const CreateChannel = ({ createType, setIsCreating }) => {
   const [channelName, setChannelName] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([client.userID || ""]);
   console.log(createType);
-
+  const dispatch = useDispatch();
+  const toggleDisplay = (value) => {
+    dispatch(showActions.displayComponent(value));
+  };
+  const homeDisplay = (value) => {
+    dispatch(showActions.displayHome(value));
+  };
   const createChannel = async (e) => {
     e.preventDefault();
 
@@ -75,7 +91,12 @@ const CreateChannel = ({ createType, setIsCreating }) => {
             ? "Create a New Channel"
             : "Send a Direct Message"}
         </p>
-        <CloseCreateChannel setIsCreating={setIsCreating} />
+        <CloseCreateChannel
+          setIsCreating={setIsCreating}
+          createType={createType}
+          toggleDisplay={toggleDisplay}
+          homeDisplay={homeDisplay}
+        />
       </div>
       {createType === "team" && (
         <ChannelNameInput

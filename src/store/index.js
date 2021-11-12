@@ -124,8 +124,8 @@ const showSlice = createSlice({
     passwordIcon(state) {
       state.passwordIcon = !state.passwordIcon;
     },
-    displayComponent(state) {
-      state.displayComponent = !state.displayComponent;
+    displayComponent(state, action) {
+      state.displayComponent = action.payload;
     },
     displayHome(state, action) {
       state.displayHome = action.payload;
@@ -175,6 +175,7 @@ const initialGetStreamChannelState = {
   createType: "",
   isCreating: false,
   isEditing: false,
+  createChannel: true,
 };
 
 const getStreamChannelSlice = createSlice({
@@ -185,10 +186,13 @@ const getStreamChannelSlice = createSlice({
       state.createType = action.payload;
     },
     isCreating(state, action) {
-      state.isCreating = !state.isCreating;
+      state.isCreating = action.payload;
     },
     isEditing(state, action) {
       state.isEditing = !state.isEditing;
+    },
+    createChannel(state, action) {
+      state.createChannel = action.payload;
     },
   },
 });

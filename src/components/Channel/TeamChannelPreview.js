@@ -15,10 +15,13 @@ const TeamChannelPreview = ({
   const { channel: activeChannel, client } = useChatContext();
   const dispatch = useDispatch();
 
-  const removeHomeDisplay = () => {
-    dispatch(showActions.displayHome(false));
+  const removeHomeDisplay = (value) => {
+    dispatch(showActions.displayHome(value));
   };
 
+  const toggleDisplay = (value) => {
+    dispatch(showActions.displayComponent(value));
+  };
   const ChannelPreview = () => (
     <p className="channel-preview__item">
       # {channel?.data?.name || channel?.data?.id}
@@ -59,8 +62,9 @@ const TeamChannelPreview = ({
         if (setToggleContainer) {
           setToggleContainer((prevState) => !prevState);
         }
-        removeHomeDisplay();
-        closeSidebar();
+        toggleDisplay(true);
+        closeSidebar(false);
+        removeHomeDisplay(false);
       }}
     >
       {type === "team" ? <ChannelPreview /> : <DirectPreview />}

@@ -62,8 +62,11 @@ const ChannelListContent = ({
   const removeToken = () => {
     dispatch(authenticationActions.token());
   };
-  const toggleDisplay = () => {
-    dispatch(showActions.displayComponent());
+  const toggleDisplay = (value) => {
+    dispatch(showActions.displayComponent(value));
+  };
+  const homeDisplay = (value) => {
+    dispatch(showActions.displayHome(value));
   };
 
   const logout = () => {
@@ -86,7 +89,10 @@ const ChannelListContent = ({
 
   const closeSidebar = () => {
     setSidebar(false);
-    toggleDisplay();
+    toggleDisplay(false);
+    homeDisplay(true);
+    setIsCreating(false);
+    setIsEditing(false);
   };
   const filters = { members: { $in: [client.userID] } };
   const SidebarTab = () => (
@@ -95,7 +101,10 @@ const ChannelListContent = ({
   const [sidebar, setSidebar] = useState(false);
   const openSidebar = () => {
     setSidebar(true);
-    toggleDisplay();
+    toggleDisplay(false);
+    homeDisplay(false);
+    setIsCreating(false);
+    setIsEditing(false);
   };
   if (sidebar) {
     return (
@@ -116,6 +125,7 @@ const ChannelListContent = ({
                 setCreateType={setCreateType}
                 setIsEditing={setIsEditing}
                 setToggleContainer={setToggleContainer}
+                closeSidebar={setSidebar}
               />
             )}
             Preview={(previewProps) => (
@@ -125,7 +135,7 @@ const ChannelListContent = ({
                 setIsCreating={setIsCreating}
                 setIsEditing={setIsEditing}
                 setToggleContainer={setToggleContainer}
-                closeSidebar={closeSidebar}
+                closeSidebar={setSidebar}
               />
             )}
           />
@@ -141,6 +151,7 @@ const ChannelListContent = ({
                 setCreateType={setCreateType}
                 setIsEditing={setIsEditing}
                 setToggleContainer={setToggleContainer}
+                closeSidebar={setSidebar}
               />
             )}
             Preview={(previewProps) => (
@@ -150,7 +161,7 @@ const ChannelListContent = ({
                 setToggleContainer={setToggleContainer}
                 setIsCreating={setIsCreating}
                 setIsEditing={setIsEditing}
-                closeSidebar={closeSidebar}
+                closeSidebar={setSidebar}
               />
             )}
           />
