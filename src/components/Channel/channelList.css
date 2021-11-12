@@ -271,6 +271,7 @@
   border-top-right-radius: 16px;
   z-index: 1;
   color: #ffffff;
+  margin-bottom: 10%;
 }
 
 .team-channel-header__channel-wrapper {
@@ -299,7 +300,7 @@
   white-space: nowrap;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  margin-top: 2%;
+  margin-top: 5%;
 }
 
 .team-channel-header__name {
@@ -743,6 +744,20 @@
   display: flex;
   justify-content: end;
   margin-right: 5%;
+}
+/* alternate messages in stream chat */
+#root
+  > div
+  > div.channel__container
+  > div
+  > div
+  > div
+  > div
+  > div.str-chat__list
+  > div
+  > ul
+  > li:nth-child(4n-2) {
+  margin: 0;
 }
 /* alternate date in stream chat */
 #root
