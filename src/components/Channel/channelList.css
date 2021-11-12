@@ -292,12 +292,14 @@
 .team-channel-header__name-wrapper {
   flex: 3;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   overflow-x: auto;
   max-width: 500px;
   white-space: nowrap;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  margin-top: 2%;
 }
 
 .team-channel-header__name {
@@ -312,9 +314,10 @@
   flex-direction: row;
   width: 100%;
   font-size: 3rem;
+  margin-top: 2%;
 }
 .team-channel-header__name-multi > p {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 .team-channel-header__name-multi > div {
   font-size: 2rem;
