@@ -386,8 +386,9 @@
 
 .str-chat__input-flat {
   background: none !important;
-  height: 20%;
+  height: 10%;
   padding: 2% !important;
+  margin-bottom: 7%;
 }
 
 .str-chat__send-button path {
