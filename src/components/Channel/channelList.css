@@ -271,7 +271,7 @@
   border-top-right-radius: 16px;
   z-index: 1;
   color: #ffffff;
-  margin-bottom: 10%;
+  margin-bottom: 10px;
 }
 
 .team-channel-header__channel-wrapper {
@@ -404,6 +404,7 @@
 
 .str-chat__message-team-group p {
   color: white;
+  /* background-color: green; */
 }
 
 .str-chat__date-separator div {
@@ -700,6 +701,15 @@
   height: 100vh;
 }
 
+.str-chat__message-team-author {
+  border-bottom: 1px rgba(255, 255, 255, 0.66) solid;
+  font-size: 1.3rem;
+}
+
+.str-chat__textarea {
+  color: black;
+}
+
 /*padding-top for the stream chat feed */
 #root
   > div
@@ -730,7 +740,7 @@
 }
 
 /* alternate messages in stream chat */
-#root
+/* #root
   > div
   > div.channel__container
   > div
@@ -744,7 +754,7 @@
   display: flex;
   justify-content: end;
   margin-right: 5%;
-}
+} */
 /* alternate messages in stream chat */
 #root
   > div
@@ -760,7 +770,7 @@
   margin: 0;
 }
 /* alternate date in stream chat */
-#root
+/* #root
   > div
   > div.channel__container
   > div
@@ -773,7 +783,7 @@
   > li:nth-child(4n-3) {
   display: flex;
   justify-content: start;
-}
+} */
 
 /* Delivered checkmark */
 #root
@@ -807,6 +817,138 @@
 .connection-list-text {
   color: #110118;
   margin-left: 5%;
+}
+
+#root
+  > div
+  > div.channel__container
+  > div
+  > div
+  > div
+  > div
+  > div.str-chat__list
+  > div
+  > ul
+  > li.str-chat__li:nth-child(4n-2)
+  > div
+  > div.str-chat__message-team-group
+  > div:nth-child(2)
+  p {
+  background-color: #060118;
+  margin: auto;
+  padding: 0.5vh 3vw;
+  border-radius: 15%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#root
+  > div
+  > div.channel__container
+  > div
+  > div
+  > div
+  > div
+  > div.str-chat__list
+  > div
+  > ul
+  > li.str-chat__li--top:nth-child(odd)
+  > div
+  > div.str-chat__message-team-group
+  > div:nth-child(2)
+  p {
+  background-color: #060118;
+  margin: auto;
+  padding: 0.5vh 3vw;
+  border-radius: 15%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+#root
+  > div
+  > div.channel__container
+  > div
+  > div
+  > div
+  > div
+  > div.str-chat__list
+  > div
+  > ul
+  > li.str-chat__li--middle:nth-child(odd)
+  > div
+  > div.str-chat__message-team-group
+  > div
+  p {
+  background-color: #060118;
+  margin: auto;
+  padding: 0.5vh 3vw;
+  border-radius: 15%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#root
+  > div
+  > div.channel__container
+  > div
+  > div
+  > div
+  > div
+  > div.str-chat__list
+  > div
+  > ul
+  > li.str-chat__li--bottom:nth-child(odd)
+  > div
+  > div.str-chat__message-team-group
+  > div
+  p {
+  background-color: #060118;
+  margin: auto;
+  padding: 0.5vh 3vw;
+  border-radius: 15%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* #root
+  > div
+  > div.channel__container
+  > div
+  > div
+  > div
+  > div
+  > div.str-chat__list
+  > div
+  > ul
+  > li.str-chat__li--single:nth-child(4)
+  > div
+  > div.str-chat__message-team-group
+  > div:nth-child(2)
+  p {
+  margin: auto;
+  padding: 0.5vh 3vw;
+  border-radius: 15%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+} */
+
+.str-chat__list .str-chat__li p {
+  margin: auto;
+  padding: 0.5vh 3vw;
+  border-radius: 15%;
+  background: #060118;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+#root
+  > div
+  > div.channel__container
+  > div
+  > div
+  > div
+  > div
+  > div.str-chat__list
+  > div
+  > ul
+  > li
+  > div
+  > div.str-chat__message-team-group {
+  width: auto;
 }
 
 @media screen and (max-width: 960px) {
