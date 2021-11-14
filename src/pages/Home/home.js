@@ -1,8 +1,18 @@
 import { React, useEffect } from "react";
+import { StreamChat } from "stream-chat";
+import Cookies from "universal-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { storage, database } from "../../firebase/index";
 import { uploadImageActions } from "../../store/index";
 import "./home.css";
+
+const apiKey = "yzq768xf9r3a";
+
+const client = StreamChat.getInstance(apiKey);
+
+const cookies = new Cookies();
+
+const authToken = cookies.get("streamToken");
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -91,6 +101,12 @@ const Home = () => {
             throw new Error(errorMessage);
           });
         }
+      });
+      client.partialUpdateUser({
+        id: cookies.get("streamUserId"),
+        set: {
+          image: profileUrl,
+        },
       });
     }
   }, [profileUrl]);

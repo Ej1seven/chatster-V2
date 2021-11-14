@@ -179,6 +179,7 @@ function App() {
         handleProfileIds(photoIds);
         handleProfileCount(count);
       });
+    console.log(profileUrl);
     if (authToken) {
       client.connectUser(
         {
