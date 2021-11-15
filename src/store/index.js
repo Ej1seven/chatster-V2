@@ -112,6 +112,7 @@ const initialShowState = {
   passwordIcon: false,
   displayComponent: true,
   displayHome: true,
+  displaySearch: true,
 };
 
 const showSlice = createSlice({
@@ -130,6 +131,9 @@ const showSlice = createSlice({
     displayHome(state, action) {
       state.displayHome = action.payload;
     },
+    displaySearch(state, action) {
+      state.displaySearch = action.payload;
+    },
   },
 });
 
@@ -141,6 +145,7 @@ const initialLoginState = {
   lastName: "",
   id: "",
   phoneNumber: "",
+  usersList: null,
 };
 
 const formInputSlice = createSlice({
@@ -167,6 +172,9 @@ const formInputSlice = createSlice({
     },
     phoneNumber(state, action) {
       state.phoneNumber = action.payload;
+    },
+    usersList(state, action) {
+      state.usersList = action.payload;
     },
   },
 });

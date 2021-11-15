@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "../src/pages/Login/login";
 import Home from "../src/pages/Home/home";
+import Search from "../src/pages/Search/search";
 import Header from "./components/Header/header";
 import { useSelector, useDispatch, connect } from "react-redux";
 import {
@@ -53,6 +54,7 @@ function App() {
   const createType = useSelector((state) => state.channel.createType);
   const display = useSelector((state) => state.show.displayComponent);
   const displayHome = useSelector((state) => state.show.displayHome);
+  const displaySearch = useSelector((state) => state.show.displaySearch);
 
   const isLoggedIn = !!token;
   const handleDisplayNameChanged = (e) => {
@@ -66,6 +68,9 @@ function App() {
   };
   const handleIdChanged = (e) => {
     dispatch(formActions.id(e));
+  };
+  const handleUserListChanged = (e) => {
+    dispatch(formActions.usersList(e));
   };
   const handleProfilePhoto = (e) => {
     dispatch(uploadImageActions.profileUrl(e));
@@ -122,6 +127,7 @@ function App() {
   useEffect(() => {
     let isUserLogin = localStorage.getItem("userIsLoggedIn");
     let email = localStorage.getItem("email");
+
     console.log(isUserLogin);
     if (isUserLogin) {
       handleEmailChanged(email);
@@ -136,9 +142,19 @@ function App() {
     )
       .then((response) => response.json())
       .then((data) => {
+        let usersArray;
         let users = Object.entries(data).map((key) => {
           return key;
         });
+        for (var j = 0; j < users.length; j++) {
+          let formattedUserList = users.filter(
+            (user) => user[j].email !== email
+          );
+          usersArray = formattedUserList.map((user) => {
+            return user[j];
+          });
+        }
+        handleUserListChanged(usersArray);
         let user = users.filter((user) => user[1].email === email);
         let userProfile = user[0][1];
         let userId = user[0][0];
@@ -220,7 +236,8 @@ function App() {
       <Switch>
         <Route path="/">
           {!isLoggedIn && <Login />}
-          {isLoggedIn && displayHome && <Home />}
+          {/* {isLoggedIn && displayHome && <Home />} */}
+          {displaySearch && <Search />}
         </Route>
       </Switch>
     </div>
