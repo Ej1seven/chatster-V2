@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 import { Avatar, useChatContext } from "stream-chat-react";
 import { useDispatch } from "react-redux";
 import { showActions } from "../../store/index";
@@ -22,6 +22,7 @@ const TeamChannelPreview = ({
   const toggleDisplay = (value) => {
     dispatch(showActions.displayComponent(value));
   };
+
   const ChannelPreview = () => (
     <p className="channel-preview__item">
       # {channel?.data?.name || channel?.data?.id}

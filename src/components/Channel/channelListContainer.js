@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChannelList, useChatContext } from "stream-chat-react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import { authenticationActions, showActions } from "../../store/index";
@@ -57,7 +57,9 @@ const ChannelListContent = ({
   setToggleContainer,
 }) => {
   const { client } = useChatContext();
+  console.log(client);
   const dispatch = useDispatch();
+  const displayBasePage = useSelector((state) => state.show.displayHomeBase);
 
   const removeToken = () => {
     dispatch(authenticationActions.token());
@@ -86,6 +88,10 @@ const ChannelListContent = ({
     client.disconnectUser();
     window.location.reload();
   };
+
+  useEffect(() => {
+    toggleDisplay(false);
+  }, [displayBasePage]);
 
   const closeSidebar = () => {
     setSidebar(false);
@@ -179,7 +185,6 @@ const ChannelListContainer = ({
   setIsEditing,
 }) => {
   const [toggleContainer, setToggleContainer] = useState(false);
-
   return (
     <>
       <div className="channel-list__container">

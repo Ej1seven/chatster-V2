@@ -8,6 +8,9 @@ const initialUploadImageState = {
   photoCount: null,
   profileUrlFinal: null,
   showPhoto: false,
+  photoGalleryUpload: null,
+  photoGalleryUrl: null,
+  photoGalleryList: null,
 };
 
 const uploadImageSlice = createSlice({
@@ -31,6 +34,15 @@ const uploadImageSlice = createSlice({
     },
     profileUrlFinal(state, action) {
       state.profileUrlFinal = action.payload;
+    },
+    photoGalleryUpload(state, action) {
+      state.photoGalleryUpload = action.payload;
+    },
+    photoGalleryUrl(state, action) {
+      state.photoGalleryUrl = action.payload;
+    },
+    photoGalleryList(state, action) {
+      state.photoGalleryList = action.payload;
     },
   },
 });
@@ -112,7 +124,9 @@ const initialShowState = {
   passwordIcon: false,
   displayComponent: true,
   displayHome: true,
-  displaySearch: true,
+  displayHomeBase: false,
+  displaySearch: false,
+  displayViewProfile: false,
 };
 
 const showSlice = createSlice({
@@ -128,11 +142,17 @@ const showSlice = createSlice({
     displayComponent(state, action) {
       state.displayComponent = action.payload;
     },
+    displayHomeBase(state) {
+      state.displayHomeBase = !state.displayHomeBase;
+    },
     displayHome(state, action) {
       state.displayHome = action.payload;
     },
     displaySearch(state, action) {
       state.displaySearch = action.payload;
+    },
+    displayViewProfile(state, action) {
+      state.displayViewProfile = action.payload;
     },
   },
 });
@@ -145,7 +165,12 @@ const initialLoginState = {
   lastName: "",
   id: "",
   phoneNumber: "",
+  uneditedUserList: "",
   usersList: null,
+  following: "",
+  uneditedFollowingList: "",
+  followers: "",
+  guestUser: "",
 };
 
 const formInputSlice = createSlice({
@@ -173,8 +198,23 @@ const formInputSlice = createSlice({
     phoneNumber(state, action) {
       state.phoneNumber = action.payload;
     },
+    uneditedUserList(state, action) {
+      state.uneditedUserList = action.payload;
+    },
     usersList(state, action) {
       state.usersList = action.payload;
+    },
+    following(state, action) {
+      state.following = action.payload;
+    },
+    uneditedFollowingList(state, action) {
+      state.uneditedFollowingList = action.payload;
+    },
+    followers(state, action) {
+      state.followers = action.payload;
+    },
+    guestUser(state, action) {
+      state.guestUser = action.payload;
     },
   },
 });

@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Login from "../src/pages/Login/login";
 import Home from "../src/pages/Home/home";
 import Search from "../src/pages/Search/search";
+import View from "../src/pages/View/view";
 import Header from "./components/Header/header";
 import { useSelector, useDispatch, connect } from "react-redux";
 import {
@@ -55,6 +56,9 @@ function App() {
   const display = useSelector((state) => state.show.displayComponent);
   const displayHome = useSelector((state) => state.show.displayHome);
   const displaySearch = useSelector((state) => state.show.displaySearch);
+  const displayViewProfile = useSelector(
+    (state) => state.show.displayViewProfile
+  );
 
   const isLoggedIn = !!token;
   const handleDisplayNameChanged = (e) => {
@@ -68,6 +72,18 @@ function App() {
   };
   const handleIdChanged = (e) => {
     dispatch(formActions.id(e));
+  };
+  const following = (e) => {
+    dispatch(formActions.following(e));
+  };
+  const followers = (e) => {
+    dispatch(formActions.followers(e));
+  };
+  const handleUneditedUserListChanged = (e) => {
+    dispatch(formActions.uneditedUserList(e));
+  };
+  const handleUneditedFollowingListChanged = (e) => {
+    dispatch(formActions.uneditedFollowingList(e));
   };
   const handleUserListChanged = (e) => {
     dispatch(formActions.usersList(e));
@@ -83,6 +99,9 @@ function App() {
   };
   const handleProfileCount = (e) => {
     dispatch(uploadImageActions.photoCount(e));
+  };
+  const handlePhotoGalleryList = (e) => {
+    dispatch(uploadImageActions.photoGalleryList(e));
   };
   const streamTokenHandler = (streamToken) => {
     dispatch(getStreamActions.streamToken(streamToken));
@@ -142,19 +161,26 @@ function App() {
     )
       .then((response) => response.json())
       .then((data) => {
-        let usersArray;
+        let usersArray = [];
         let users = Object.entries(data).map((key) => {
           return key;
         });
-        for (var j = 0; j < users.length; j++) {
-          let formattedUserList = users.filter(
-            (user) => user[j].email !== email
-          );
-          usersArray = formattedUserList.map((user) => {
-            return user[j];
-          });
+        console.log(users);
+        handleUneditedUserListChanged(users);
+        let formattedUserList = users.filter(
+          (userProfile) => userProfile[1].email !== email
+        );
+        for (var j = 0; j < formattedUserList.length; j++) {
+          usersArray.push(formattedUserList[j][1]);
         }
-        handleUserListChanged(usersArray);
+        console.log(usersArray);
+
+        let alphabetizedUserList = usersArray.sort((a, b) =>
+          a.displayName > b.displayName ? 1 : -1
+        );
+        console.log(alphabetizedUserList);
+
+        handleUserListChanged(alphabetizedUserList);
         let user = users.filter((user) => user[1].email === email);
         let userProfile = user[0][1];
         let userId = user[0][0];
@@ -194,23 +220,101 @@ function App() {
         handleProfileId(photoIds[0]);
         handleProfileIds(photoIds);
         handleProfileCount(count);
-      });
-    console.log(profileUrl);
-    if (authToken) {
-      client.connectUser(
-        {
-          id: cookies.get("streamUserId"),
-          name: cookies.get("username"),
-          fullName: cookies.get("fullName"),
-          image: cookies.get("avatarURL"),
-          hashedPassword: cookies.get("hashedPassword"),
-          phoneNumber: cookies.get("phoneNumber"),
-        },
-        authToken
-      );
-    }
-  }
+        fetch(
+          `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/following.json`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              let followingUsers = [];
+              let uneditedFollowingUsers;
+              console.log("following user data", data);
+              let formattedData = Object.entries(data).map((key) => {
+                return key;
+              });
 
+              for (var j = 0; j < formattedData.length; j++) {
+                followingUsers.push(formattedData[j][1]);
+              }
+              following(followingUsers);
+              console.log(followingUsers);
+              console.log(usersArray);
+              let uneditedFollowingList = [];
+              for (var j = 0; j < usersArray.length; j++) {
+                console.log(usersArray[j].email);
+                console.log(followingUsers[j]);
+                let followingUserProfile = usersArray.filter(
+                  (user) => user.email === followingUsers[j]
+                );
+
+                console.log(followingUserProfile);
+                if (followingUserProfile.length > 0) {
+                  uneditedFollowingList.push(followingUserProfile);
+                }
+              }
+              console.log(uneditedFollowingList);
+              let alphabetizedFollowingList = uneditedFollowingList.sort(
+                (a, b) => (a[0].displayName > b[0].displayName ? 1 : -1)
+              );
+              console.log(alphabetizedFollowingList);
+              handleUneditedFollowingListChanged(alphabetizedFollowingList);
+            }
+          });
+        fetch(
+          `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/followers.json`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              let followerUsers = [];
+              console.log("following user data", data);
+              let formattedData = Object.entries(data).map((key) => {
+                return key;
+              });
+
+              for (var j = 0; j < formattedData.length; j++) {
+                followerUsers.push(formattedData[j][1]);
+              }
+              followers(followerUsers);
+            }
+          });
+        fetch(
+          `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/photoGallery.json`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              let photos = [];
+              console.log("photo gallery", data);
+              let formattedData = Object.entries(data).map((key) => {
+                return key;
+              });
+              console.log(formattedData);
+
+              for (var j = 0; j < formattedData.length; j++) {
+                photos.push(formattedData[j][1]);
+              }
+              console.log(photos);
+              handlePhotoGalleryList(photos);
+              // followers(followerUsers);
+            }
+          });
+        console.log(profileUrl);
+        if (authToken) {
+          client.connectUser(
+            {
+              id: cookies.get("streamUserId"),
+              name: cookies.get("username"),
+              fullName: cookies.get("fullName"),
+              image: cookies.get("avatarURL"),
+              hashedPassword: cookies.get("hashedPassword"),
+              phoneNumber: cookies.get("phoneNumber"),
+            },
+            authToken
+          );
+        }
+      });
+  }
   return (
     <div className={`app ${isLoggedIn && "background"}`}>
       {isLoggedIn && <Header />}
@@ -236,8 +340,9 @@ function App() {
       <Switch>
         <Route path="/">
           {!isLoggedIn && <Login />}
-          {/* {isLoggedIn && displayHome && <Home />} */}
+          {isLoggedIn && displayHome && <Home />}
           {displaySearch && <Search />}
+          {displayViewProfile && <View />}
         </Route>
       </Switch>
     </div>

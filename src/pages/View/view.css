@@ -1,0 +1,19 @@
+.view-profile-image-container {
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-followers-following-chats {
+  min-height: 10vh;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(2.5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.view-followers-following-chats-heading {
+  color: rgba(255, 255, 255, 0.3);
+}

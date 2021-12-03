@@ -5,13 +5,12 @@ import logo from "../../photos/logo-white.png";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { showActions } from "../../store/index";
 
 const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Search", href: "/", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Home", page: "home", current: true },
+  { name: "Friends", page: "friends", current: false },
 ];
 
 function classNames(...classes) {
@@ -19,7 +18,33 @@ function classNames(...classes) {
 }
 
 const Header = () => {
+  const dispatch = useDispatch();
   const profileUrl = useSelector((state) => state.uploadImage.profileUrl);
+  const displayHome = useSelector((state) => state.show.displayHome);
+  const displaySearch = useSelector((state) => state.show.displaySearch);
+  const setDisplayHomePage = (e) => {
+    dispatch(showActions.displayHome(e));
+  };
+  const displayBasePage = () => {
+    dispatch(showActions.displayHomeBase());
+  };
+  const setDisplaySearchPage = (e) => {
+    dispatch(showActions.displaySearch(e));
+  };
+  const displayPage = (page) => {
+    console.log(page);
+    if (page === "home") {
+      displayBasePage();
+      setDisplaySearchPage(false);
+      setDisplayHomePage(true);
+    }
+
+    if (page === "friends") {
+      displayBasePage();
+      setDisplayHomePage(false);
+      setDisplaySearchPage(true);
+    }
+  };
   return (
     <Disclosure as="nav" className="header">
       {({ open }) => (
@@ -53,7 +78,7 @@ const Header = () => {
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <p
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -65,7 +90,7 @@ const Header = () => {
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </a>
+                      </p>
                     ))}
                   </div>
                 </div>
@@ -150,9 +175,11 @@ const Header = () => {
           <Disclosure.Panel className="sm:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
-                <a
+                <p
                   key={item.name}
-                  href={item.href}
+                  onClick={() => {
+                    displayPage(item.page);
+                  }}
                   className={classNames(
                     item.current
                       ? "bg-gray-900 text-white"
@@ -162,7 +189,7 @@ const Header = () => {
                   aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
-                </a>
+                </p>
               ))}
             </div>
           </Disclosure.Panel>

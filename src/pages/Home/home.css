@@ -1,7 +1,13 @@
 .home-screen {
   color: white;
   font-family: "Roboto", sans-serif;
+  min-height: 100vh;
 }
+
+/* .home-screen.scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+} */
 
 .profile-image-container {
   min-height: 40vh;
@@ -26,4 +32,11 @@
 
 .hide {
   display: none;
+}
+
+.picture-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 5px;
+  row-gap: 5px;
 }
