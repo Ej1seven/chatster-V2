@@ -132,7 +132,6 @@ const ChannelListContent = ({
                 setIsEditing={setIsEditing}
                 setToggleContainer={setToggleContainer}
                 closeSidebar={setSidebar}
-                logOut={logout}
               />
             )}
             Preview={(previewProps) => (
@@ -159,7 +158,6 @@ const ChannelListContent = ({
                 setIsEditing={setIsEditing}
                 setToggleContainer={setToggleContainer}
                 closeSidebar={setSidebar}
-                logOut={logout}
               />
             )}
             Preview={(previewProps) => (
