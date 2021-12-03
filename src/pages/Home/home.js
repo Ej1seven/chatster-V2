@@ -4,6 +4,7 @@ import Cookies from "universal-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { storage, database } from "../../firebase/index";
 import { uploadImageActions } from "../../store/index";
+import defaultLogo from "../../photos/user.png";
 import "./home.css";
 
 const apiKey = "yzq768xf9r3a";
@@ -69,7 +70,11 @@ const Home = () => {
   useEffect(() => {
     if (!profileUrl) {
       console.log(profileUrlFinal);
-      document.getElementById("profile-photo").src = profileUrlFinal;
+      if (profileUrlFinal) {
+        document.getElementById("profile-photo").src = profileUrlFinal;
+      } else {
+        document.getElementById("profile-photo").src = defaultLogo;
+      }
     }
     if (!photoGalleryList) {
       fetch(

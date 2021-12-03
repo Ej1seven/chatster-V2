@@ -147,7 +147,6 @@ function App() {
     let isUserLogin = localStorage.getItem("userIsLoggedIn");
     let email = localStorage.getItem("email");
 
-    console.log(isUserLogin);
     if (isUserLogin) {
       handleEmailChanged(email);
       tokenHandler(isUserLogin);
@@ -155,7 +154,6 @@ function App() {
   }, [token]);
 
   if (isLoggedIn) {
-    console.log(token);
     fetch(
       "https://chat-application-db-default-rtdb.firebaseio.com/profile.json"
     )
@@ -165,7 +163,6 @@ function App() {
         let users = Object.entries(data).map((key) => {
           return key;
         });
-        console.log(users);
         handleUneditedUserListChanged(users);
         let formattedUserList = users.filter(
           (userProfile) => userProfile[1].email !== email
@@ -173,24 +170,20 @@ function App() {
         for (var j = 0; j < formattedUserList.length; j++) {
           usersArray.push(formattedUserList[j][1]);
         }
-        console.log(usersArray);
 
         let alphabetizedUserList = usersArray.sort((a, b) =>
           a.displayName > b.displayName ? 1 : -1
         );
-        console.log(alphabetizedUserList);
 
         handleUserListChanged(alphabetizedUserList);
         let user = users.filter((user) => user[1].email === email);
         let userProfile = user[0][1];
         let userId = user[0][0];
         let getStream = user[0][1].getStream;
-        console.log(getStream);
         if (getStream) {
           let getStreamData = Object.entries(getStream).map((key) => {
             return key;
           });
-          console.log(getStreamData[0][1].fullName);
           streamTokenHandler(getStreamData[0][1].streamToken);
           streamUserIdHandler(getStreamData[0][1].streamUserId);
           usernameHandler(getStreamData[0][1].username);
@@ -207,7 +200,6 @@ function App() {
             photoIds.push(photo);
             photoUrl = userProfile.profilePhoto[photo];
             count++;
-            console.log(photoIds);
           }
         } else {
           photoUrl = null;
@@ -228,7 +220,6 @@ function App() {
             if (data) {
               let followingUsers = [];
               let uneditedFollowingUsers;
-              console.log("following user data", data);
               let formattedData = Object.entries(data).map((key) => {
                 return key;
               });
@@ -237,26 +228,19 @@ function App() {
                 followingUsers.push(formattedData[j][1]);
               }
               following(followingUsers);
-              console.log(followingUsers);
-              console.log(usersArray);
               let uneditedFollowingList = [];
               for (var j = 0; j < usersArray.length; j++) {
-                console.log(usersArray[j].email);
-                console.log(followingUsers[j]);
                 let followingUserProfile = usersArray.filter(
                   (user) => user.email === followingUsers[j]
                 );
 
-                console.log(followingUserProfile);
                 if (followingUserProfile.length > 0) {
                   uneditedFollowingList.push(followingUserProfile);
                 }
               }
-              console.log(uneditedFollowingList);
               let alphabetizedFollowingList = uneditedFollowingList.sort(
                 (a, b) => (a[0].displayName > b[0].displayName ? 1 : -1)
               );
-              console.log(alphabetizedFollowingList);
               handleUneditedFollowingListChanged(alphabetizedFollowingList);
             }
           });
@@ -267,7 +251,6 @@ function App() {
           .then((data) => {
             if (data) {
               let followerUsers = [];
-              console.log("following user data", data);
               let formattedData = Object.entries(data).map((key) => {
                 return key;
               });
@@ -285,21 +268,17 @@ function App() {
           .then((data) => {
             if (data) {
               let photos = [];
-              console.log("photo gallery", data);
               let formattedData = Object.entries(data).map((key) => {
                 return key;
               });
-              console.log(formattedData);
 
               for (var j = 0; j < formattedData.length; j++) {
                 photos.push(formattedData[j][1]);
               }
-              console.log(photos);
               handlePhotoGalleryList(photos);
               // followers(followerUsers);
             }
           });
-        console.log(profileUrl);
         if (authToken) {
           client.connectUser(
             {
