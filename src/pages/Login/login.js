@@ -189,6 +189,7 @@ const Login = () => {
                 className="rounded m-5 bg-transparent border-2 border-white w-3/5 "
                 placeholder="Email"
               />
+
               <input
                 type={!showPassword ? "password" : "text"}
                 name="password"
@@ -200,17 +201,17 @@ const Login = () => {
               {!showPassword ? (
                 <>
                   <i
-                    class="fas fa-eye-slash icon"
+                    class="fas fa-eye-slash	icon"
                     onClick={showPasswordHandler}
                   ></i>
                 </>
               ) : (
                 <>
-                  <i class="fas fa-eye icon" onClick={showPasswordHandler}></i>
+                  <i class="fas fa-eye	icon" onClick={showPasswordHandler}></i>
                 </>
               )}
+
               <button className="border-2 rounded w-3/5 mb-4" onClick={submit}>
-                {" "}
                 Login
               </button>
             </>
