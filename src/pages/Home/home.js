@@ -7,7 +7,7 @@ import { uploadImageActions } from "../../store/index";
 import defaultLogo from "../../photos/user.png";
 import "./home.css";
 
-const apiKey = "yzq768xf9r3a";
+const apiKey = "hz6p2252afpv";
 
 const client = StreamChat.getInstance(apiKey);
 

@@ -72,7 +72,7 @@ const ChannelListContent = ({
   };
 
   const logout = () => {
-    const apiKey = "yzq768xf9r3a";
+    const apiKey = "hz6p2252afpv";
     const client = StreamChat.getInstance(apiKey);
     // cookies.remove("streamToken");
     // cookies.remove("streamUserId");
