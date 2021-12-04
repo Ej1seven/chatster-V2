@@ -1,6 +1,7 @@
 import React from "react";
 import { showActions } from "../../store/index";
 import { useDispatch } from "react-redux";
+import photo from "../../photos/refresh-page-option.png";
 
 const AddChannel = ({
   setCreateType,
@@ -64,10 +65,11 @@ const TeamChannelList = ({
         <p className="team-channel-list__message">
           Connection error, please wait a moment and try again.
         </p>
-        <i
-          class="fas fa-sync-alt fa-5x"
+        <img
+          src={photo}
+          className="w-12 m-auto	mt-8"
           onClick={() => window.location.reload()}
-        ></i>
+        ></img>
       </div>
     ) : null;
   }
