@@ -150,3 +150,23 @@ span:hover {
     top: 73.5%;
   }
 }
+@media only screen and (max-height: 560px) {
+  .icon {
+    top: 74.5%;
+  }
+}
+@media only screen and (max-height: 500px) {
+  .icon {
+    top: 75.5%;
+  }
+}
+@media only screen and (max-height: 440px) {
+  .icon {
+    top: 76.5%;
+  }
+}
+@media only screen and (max-height: 390px) {
+  .icon {
+    top: 77.5%;
+  }
+}
