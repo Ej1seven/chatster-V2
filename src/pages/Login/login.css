@@ -137,3 +137,9 @@ span:hover {
     top: 72.5%;
   }
 }
+
+@media only screen and (max-height: 425px) {
+  .icon {
+    top: 74%;
+  }
+}
