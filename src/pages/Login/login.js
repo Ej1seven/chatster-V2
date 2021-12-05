@@ -174,14 +174,13 @@ const Login = () => {
 
   return (
     <div>
-      <div
-        transition-style
-        className="splash-screen"
-        id={showModal ? "registration-page" : ""}
-      >
+      <div transition-style className="splash-screen">
         <p className="app-title">Chatster</p>
         <img alt="logo" className="app-logo" src={logo} />
-        <form className="rounded flex justify-center flex-col items-center">
+        <form
+          className="rounded flex justify-center flex-col items-center"
+          id={showModal ? "registration-page" : ""}
+        >
           {!showModal ? (
             <>
               <p className="form-title">Chatster</p>

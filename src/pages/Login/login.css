@@ -83,9 +83,6 @@ span:hover {
 .icon:hover {
   cursor: pointer;
 }
-#registration-page {
-  position: absolute;
-}
 
 @keyframes title-transition {
   100% {
@@ -184,5 +181,17 @@ span:hover {
 @media only screen and (max-height: 390px) {
   .icon {
     top: 77.5%;
+  }
+}
+@media only screen and (max-height: 665px) {
+  #registration-page {
+    /* margin-top: 30%; */
+    height: 130%;
+  }
+}
+@media only screen and (max-height: 440px) {
+  #registration-page {
+    /* margin-top: 30%; */
+    height: 140%;
   }
 }
