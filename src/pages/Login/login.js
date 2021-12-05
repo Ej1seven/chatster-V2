@@ -207,7 +207,7 @@ const Login = () => {
                 </>
               ) : (
                 <>
-                  <i class="fas fa-eye	icon" onClick={showPasswordHandler}></i>
+                  <i class="fas fa-eye icon" onClick={showPasswordHandler}></i>
                 </>
               )}
 
