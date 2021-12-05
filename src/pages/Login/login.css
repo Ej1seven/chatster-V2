@@ -132,14 +132,21 @@ span:hover {
   .splash-screen .app-logo {
     margin: 60% 0;
   }
+}
 
+@media only screen and (max-width: 425px), screen and (min-height: 684px) {
   .icon {
     top: 72.5%;
   }
 }
 
-@media only screen and (max-height: 425px) {
+@media only screen and (max-height: 683px) {
   .icon {
-    top: 74%;
+    top: 73%;
+  }
+}
+@media only screen and (max-height: 643px) {
+  .icon {
+    top: 73.5%;
   }
 }
