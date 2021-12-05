@@ -8,6 +8,7 @@ import {
 import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
 import Cookies from "universal-cookie";
+import "./register.css";
 
 const cookies = new Cookies();
 

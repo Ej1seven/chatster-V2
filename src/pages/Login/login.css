@@ -83,6 +83,9 @@ span:hover {
 .icon:hover {
   cursor: pointer;
 }
+#registration-page {
+  position: absolute;
+}
 
 @keyframes title-transition {
   100% {
