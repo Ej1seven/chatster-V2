@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -31,6 +31,8 @@ const Login = () => {
   const streamPhoneNumber = useSelector((state) => state.stream.phoneNumber);
   const hashedPassword = useSelector((state) => state.stream.hashedPassword);
   const streamPassword = useSelector((state) => state.stream.password);
+  const [showAlertMessage, setShowAlertMessage] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(false);
   let username = "";
 
   const showHandler = () => {
@@ -76,6 +78,13 @@ const Login = () => {
     dispatch(formActions.id(e));
   };
 
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest(".alert");
+    if (!el) {
+      return setShowAlertMessage(false);
+    }
+  });
+
   const submit = (event) => {
     event.preventDefault();
     // loadingHandler();
@@ -98,15 +107,19 @@ const Login = () => {
           return response.json();
         } else {
           return response.json().then((data) => {
-            let errorMessage = "Authentication failed!";
+            let errorMessage = data.error.message;
             // if (data && data.error && data.error.message) {
             //   errorMessage = data.error.message;
             // }
-            throw new Error(errorMessage);
+            setAlertMessage(errorMessage);
+            // throw new Error("Authentication failed!");
           });
         }
       })
       .then((data) => {
+        if (!data) {
+          return setShowAlertMessage(true);
+        }
         tokenHandler(data.idToken);
         localStorage.setItem("userIsLoggedIn", data.idToken);
         localStorage.setItem("email", email);
@@ -173,7 +186,28 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div class="flex justify-center	">
+      {showAlertMessage && (
+        <div class="alert alert-error absolute mt-44 z-10 bg-red-700 w-4/5 bg-opacity-90">
+          <div class="flex-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="w-6 h-6 mx-2 stroke-current"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+              ></path>
+            </svg>
+            <label>{alertMessage}</label>
+          </div>
+        </div>
+      )}
+
       <div transition-style className="splash-screen">
         <p className="app-title">Chatster</p>
         <img alt="logo" className="app-logo" src={logo} />
@@ -228,17 +262,23 @@ const Login = () => {
             {!showModal ? (
               <>
                 Don't have an account?
-                <span onClick={showHandler}>Sign up</span>
+                <span class="font-extrabold" onClick={showHandler}>
+                  Sign up
+                </span>
               </>
             ) : (
               <>
                 Already have an account?
-                <span onClick={showHandler}> Sign In</span>
+                <span class="font-extrabold" onClick={showHandler}>
+                  {" "}
+                  Sign In
+                </span>
               </>
             )}
           </p>
           <p>
-            Sign in as a<span className="sign-up"> Demo User</span>
+            Sign in as a
+            <span className="sign-up font-extrabold"> Demo User</span>
           </p>
         </form>
       </div>
