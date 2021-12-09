@@ -127,8 +127,8 @@ const Home = () => {
 
   useEffect(() => {
     if (photoGalleryUrl) {
-      console.log(photoGalleryUrl);
       loadingHandler();
+      console.log(photoGalleryUrl);
       fetch(
         `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/photoGallery.json`,
         {
@@ -137,8 +137,6 @@ const Home = () => {
           body: JSON.stringify(photoGalleryUrl),
         }
       ).then((response) => {
-        loadingHandler();
-
         fetch(
           `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/photoGallery.json`
         )
@@ -162,6 +160,7 @@ const Home = () => {
               handlePhotoGalleryList(photos);
             }
           });
+        loadingHandler();
       });
     }
     console.log(photoGalleryUrl);
