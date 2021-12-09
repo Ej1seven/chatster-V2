@@ -3,8 +3,10 @@ import { StreamChat } from "stream-chat";
 import Cookies from "universal-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { storage, database } from "../../firebase/index";
-import { uploadImageActions } from "../../store/index";
+import { uploadImageActions, loadingActions } from "../../store/index";
 import defaultLogo from "../../photos/user.png";
+import { css } from "@emotion/react";
+import BeatLoader from "react-spinners/BeatLoader";
 import "./home.css";
 
 const apiKey = "hz6p2252afpv";
@@ -14,8 +16,14 @@ const client = StreamChat.getInstance(apiKey);
 const cookies = new Cookies();
 
 const Home = () => {
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+  `;
   console.log(client.activeChannels);
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.load.showLoadingIcon);
   const following = useSelector((state) => state.form.following);
   const followers = useSelector((state) => state.form.followers);
   const email = useSelector((state) => state.form.email);
@@ -43,6 +51,9 @@ const Home = () => {
   const photoCount = useSelector((state) => state.uploadImage.photoCount);
   const hidePhoto = false;
   const [photoList, setPhotoList] = useState([]);
+  const loadingHandler = () => {
+    dispatch(loadingActions.showLoadingIcon());
+  };
 
   const handleImageChange = (event) => {
     event.preventDefault();
@@ -117,6 +128,7 @@ const Home = () => {
   useEffect(() => {
     if (photoGalleryUrl) {
       console.log(photoGalleryUrl);
+      loadingHandler();
       fetch(
         `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/photoGallery.json`,
         {
@@ -125,9 +137,34 @@ const Home = () => {
           body: JSON.stringify(photoGalleryUrl),
         }
       ).then((response) => {
-        console.log(response);
+        loadingHandler();
+
+        fetch(
+          `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/photoGallery.json`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              let photos = [];
+              console.log("photo gallery", data);
+              let formattedData = Object.entries(data).map((key) => {
+                return key;
+              });
+              console.log(formattedData);
+
+              for (var j = 0; j < formattedData.length; j++) {
+                photos.push(formattedData[j][1]);
+              }
+              console.log(photos);
+              dispatch(uploadImageActions.photoGalleryUpload(""));
+              dispatch(uploadImageActions.photoGalleryUrl(""));
+
+              handlePhotoGalleryList(photos);
+            }
+          });
       });
     }
+    console.log(photoGalleryUrl);
   }, [photoGalleryUrl]);
 
   useEffect(() => {
@@ -240,13 +277,15 @@ const Home = () => {
 
   return (
     <div className="home-screen">
-      <div className="profile-image-container">
-        <img
-          className="h-40 w-40 rounded-full object-cover"
-          src={profileUrl}
-          alt=""
-          id="profile-photo"
-        />
+      <div className="profile-image-container mt-8">
+        <div className="w-full flex justify-center image">
+          <img
+            className="h-40 w-40 rounded-full object-cover"
+            src={profileUrl}
+            alt=""
+            id="profile-photo"
+          />{" "}
+        </div>
         <input
           type="file"
           id="imageInput"
@@ -257,6 +296,7 @@ const Home = () => {
           className="fas fa-edit pl-44 absolute mt-24 text-xl edit-photo-button"
           onClick={handleEditPicture}
         ></i>
+
         <p className="text-3xl mt-6 font-semibold">{displayName}</p>
         <p className="text-lg mb-2 font-thin">{email}</p>
       </div>
@@ -270,23 +310,31 @@ const Home = () => {
           <p className="followers-following-chats-heading">Following</p>
         </div>
       </div>
-      <div className="flex justify-center items-center m-4" onClick={addPhoto}>
+      <div className="flex justify-center items-center m-4 camera-container">
         <div>
-          <i class="fas fa-camera fa-3x "></i>
-          <input
-            type="file"
-            id="imageGalleryInput"
-            hidden="hidden"
-            onChange={handleImageGalleryChange}
-          ></input>
+          {!isLoading ? (
+            <>
+              <i class="fas fa-camera fa-3x " onClick={addPhoto}></i>
+              <input
+                type="file"
+                id="imageGalleryInput"
+                hidden="hidden"
+                onChange={handleImageGalleryChange}
+              ></input>
+            </>
+          ) : (
+            <>
+              <BeatLoader color="#ffffff" css={override} size={50} />
+            </>
+          )}
         </div>
       </div>
       {photoGalleryList && (
         <div className="picture-grid">
           {photoGalleryList.map((photo) => {
             return (
-              <div className="photo-container object-cover">
-                <img src={photo} />
+              <div className="photo-container object-scale-down">
+                <img className="gallery-image" src={photo} />
               </div>
             );
           })}

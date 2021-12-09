@@ -4,6 +4,20 @@
   min-height: 100vh;
 }
 
+.camera-container:hover,
+:focus {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.fa-camera:hover,
+:focus {
+  color: #110118;
+}
+
+/* .image {
+  background: linear-gradient(to bottom, white 50%, yellow 50%);
+} */
+
 /* .home-screen.scroll {
   overflow-x: hidden;
   overflow-y: auto;
@@ -39,4 +53,12 @@
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 5px;
   row-gap: 5px;
+}
+
+.photo-container {
+  height: 155px;
+}
+
+.gallery-image {
+  height: 100%;
 }
