@@ -102,7 +102,13 @@ const ChannelListContent = ({
   };
   const filters = { members: { $in: [client.userID] } };
   const SidebarTab = () => (
-    <div className="sidebar-tab" onClick={openSidebar}></div>
+    // <div className="sidebar-tab" onClick={openSidebar}>
+    <div>
+      <i
+        class="fab fa-facebook-messenger sidebar-tab fa-2x"
+        onClick={openSidebar}
+      ></i>
+    </div>
   );
   const [sidebar, setSidebar] = useState(false);
   const openSidebar = () => {

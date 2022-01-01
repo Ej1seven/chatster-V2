@@ -3,12 +3,18 @@
   height: 100vh;
 }
 
+.friends-page {
+  width: 90%;
+  margin: auto;
+}
+
 .userList-item {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 8%;
 }
+
 .userList-item:hover {
   background-color: #060118;
   border: 1px solid white;
@@ -20,6 +26,7 @@
   display: flex;
   align-items: center;
 }
+
 .userList-item-name p {
   font-size: 1.3rem;
   padding-left: 2%;
@@ -38,4 +45,40 @@
   > div
   > button:hover {
   background-color: #060118;
+}
+
+@media only screen and (max-width: 390px) {
+  #user-input {
+    width: 90%;
+  }
+  .search-bar {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 471px) {
+  .friends-page {
+    margin-top: 10%;
+  }
+  .userList-container {
+    margin-top: 2%;
+  }
+  .userList-item {
+    height: 11%;
+  }
+}
+@media only screen and (max-width: 415px) {
+  .friends-page {
+    margin-top: 12%;
+  }
+  .userList-container {
+    margin-top: 4%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .friends-page {
+    margin-top: 15%;
+  }
+  .userList-container {
+    margin-top: 4%;
+  }
 }

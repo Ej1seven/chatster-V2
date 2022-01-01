@@ -100,13 +100,15 @@
 }
 
 .sidebar-tab {
-  height: 65px;
-  width: 30px;
-  border-bottom-right-radius: 65px;
+  margin: 2% 0 0 2%;
+  /* height: 65px;
+  width: 30px; */
+  /* border-bottom-right-radius: 65px;
   border-top-right-radius: 65px;
-  background-color: #ffffff;
+  background-color: #ffffff; */
   position: absolute;
-  margin-top: 35vh;
+  /* margin-top: 35vh; */
+  cursor: pointer;
 }
 
 .channel-search__container {

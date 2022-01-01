@@ -348,9 +348,9 @@ const Search = () => {
   };
 
   return (
-    <div>
-      <div class="flex items-center justify-center mt-3 mb-3">
-        <div class="flex border-2 rounded">
+    <div className="friends-page">
+      <div class="flex items-center justify-center mt-3 mb-3 ">
+        <div class="flex border-2 rounded search-bar">
           <input
             type="text"
             class="px-4 py-2 w-80 text-black"
