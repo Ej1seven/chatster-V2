@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { storage, database } from "../../firebase/index";
 import { uploadImageActions, loadingActions } from "../../store/index";
 import defaultLogo from "../../photos/user.png";
+import { IKImage } from "imagekitio-react";
 import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
 import "./home.css";
@@ -50,6 +51,9 @@ const Home = () => {
   const photoIds = useSelector((state) => state.uploadImage.photoIds);
   const photoCount = useSelector((state) => state.uploadImage.photoCount);
   const hidePhoto = false;
+  const urlEndpoint = "  https://ik.imagekit.io/f8sxidbb7he/";
+  const publicKey = "public_ygzD+eaCJ8qx4ht1OgebJbMIM/Y=";
+
   const [photoList, setPhotoList] = useState([]);
   const loadingHandler = () => {
     dispatch(loadingActions.showLoadingIcon());
@@ -333,7 +337,12 @@ const Home = () => {
           {photoGalleryList.map((photo) => {
             return (
               <div className="photo-container object-scale-down">
-                <img className="gallery-image" src={photo} />
+                {/* <img className="gallery-image" src={photo} /> */}
+                <IKImage
+                  className="gallery-image"
+                  urlEndpoint={urlEndpoint}
+                  src={photo}
+                />
               </div>
             );
           })}
