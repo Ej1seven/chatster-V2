@@ -153,7 +153,7 @@ span:hover {
 
 @media only screen and (min-height: 781px), screen and (max-height: 860px) {
   .icon {
-    top: 72%;
+    top: 73%;
   }
 }
 @media only screen and (min-height: 861px) {
@@ -164,7 +164,7 @@ span:hover {
 
 @media only screen and (max-height: 683px) {
   .icon {
-    top: 73%;
+    top: 72%;
   }
 }
 @media only screen and (max-height: 643px) {
