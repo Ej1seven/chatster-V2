@@ -151,14 +151,14 @@ span:hover {
   }
 }
 
-@media only screen and (min-height: 781px), screen and (max-height: 860px) {
+/* @media only screen and (min-height: 781px), screen and (max-height: 860px) {
   .icon {
-    top: 73%;
+    top: 74.5%;
   }
-}
+} */
 @media only screen and (min-height: 861px) {
   .icon {
-    top: 73.5%;
+    top: 72%;
   }
 }
 
