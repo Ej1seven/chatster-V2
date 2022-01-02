@@ -276,10 +276,10 @@ const Login = () => {
               </>
             )}
           </p>
-          <p>
+          {/* <p>
             Sign in as a
-            <span className="sign-up font-extrabold"> Demo User</span>
-          </p>
+            <span className="sign-up font-extrabold" onClick={showHandler}> Demo User</span>
+          </p> */}
         </form>
       </div>
     </div>
