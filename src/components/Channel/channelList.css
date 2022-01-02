@@ -100,8 +100,9 @@
 }
 
 .sidebar-tab {
-  margin: 2% 0 0 2%;
-  /* height: 65px;
+  margin: 0;
+  top: 2%;
+  left: 77%; /* height: 65px;
   width: 30px; */
   /* border-bottom-right-radius: 65px;
   border-top-right-radius: 65px;

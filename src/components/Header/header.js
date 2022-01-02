@@ -57,6 +57,7 @@ const Header = () => {
       displayBasePage();
       setDisplayHomePage(false);
       setDisplaySearchPage(true);
+      setDisplayViewProfile(false);
     }
   };
 
