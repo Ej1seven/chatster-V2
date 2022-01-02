@@ -10,6 +10,8 @@ import "./channelList.css";
 
 const cookies = new Cookies();
 
+const chatIcon = document.querySelector(".sidebar-tab");
+
 const SideBar = ({ logout }) => (
   <div className="channel-list__sidebar">
     <div className="channel-list__sidebar__icon1">
@@ -70,6 +72,9 @@ const ChannelListContent = ({
   const homeDisplay = (value) => {
     dispatch(showActions.displayHome(value));
   };
+  const searchDisplay = (value) => {
+    dispatch(showActions.displaySearch(value));
+  };
 
   const logout = () => {
     const apiKey = "hz6p2252afpv";
@@ -115,6 +120,7 @@ const ChannelListContent = ({
     setSidebar(true);
     toggleDisplay(false);
     homeDisplay(false);
+    searchDisplay(false);
     setIsCreating(false);
     setIsEditing(false);
   };

@@ -17,3 +17,7 @@
 .view-followers-following-chats-heading {
   color: rgba(255, 255, 255, 0.3);
 }
+
+.view-profile-grid {
+  margin-top: 2%;
+}

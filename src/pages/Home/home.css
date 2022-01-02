@@ -53,12 +53,109 @@
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 5px;
   row-gap: 5px;
+  max-width: 100vw;
 }
 
 .photo-container {
-  height: 155px;
+  display: flex;
+  justify-content: center;
+  max-height: 190px;
+  /* width: 140px; */
+  background-color: white;
 }
 
 .gallery-image {
   height: 100%;
+  width: auto;
+}
+
+@media only screen and (min-width: 426px) {
+  .photo-container {
+    max-height: 225px;
+  }
+}
+@media only screen and (min-width: 500px) {
+  .photo-container {
+    max-height: 250px;
+  }
+}
+@media only screen and (min-width: 570px) {
+  .photo-container {
+    max-height: 275px;
+  }
+}
+@media only screen and (min-width: 617px) {
+  .photo-container {
+    max-height: 300px;
+  }
+}
+@media only screen and (min-width: 680px) {
+  .photo-container {
+    max-height: 325px;
+  }
+}
+@media only screen and (min-width: 738px) {
+  .photo-container {
+    max-height: 350px;
+  }
+}
+@media only screen and (min-width: 800px) {
+  .photo-container {
+    max-height: 375px;
+  }
+}
+@media only screen and (min-width: 850px) {
+  .photo-container {
+    max-height: 400px;
+  }
+}
+@media only screen and (min-width: 900px) {
+  .photo-container {
+    max-height: 425px;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .photo-container {
+    max-height: 450px;
+  }
+}
+@media only screen and (min-width: 1018px) {
+  .photo-container {
+    max-height: 475px;
+  }
+}
+@media only screen and (min-width: 1075px) {
+  .photo-container {
+    max-height: 500px;
+  }
+}
+@media only screen and (min-width: 1130px) {
+  .photo-container {
+    max-height: 525px;
+  }
+}
+@media only screen and (min-width: 1190px) {
+  .photo-container {
+    max-height: 555px;
+  }
+}
+@media only screen and (min-width: 1245px) {
+  .photo-container {
+    max-height: 580px;
+  }
+}
+@media only screen and (min-width: 1312px) {
+  .photo-container {
+    max-height: 605px;
+  }
+}
+@media only screen and (min-width: 1365px) {
+  .photo-container {
+    max-height: 635px;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .photo-container {
+    max-height: 660px;
+  }
 }

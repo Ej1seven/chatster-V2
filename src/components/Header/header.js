@@ -7,21 +7,31 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useSelector, useDispatch } from "react-redux";
 import { showActions } from "../../store/index";
+import { StreamChat } from "stream-chat";
+import Cookies from "universal-cookie";
+import { useChatContext } from "stream-chat-react";
+import { authenticationActions } from "../../store/index";
 
 const navigation = [
   { name: "Home", page: "home", current: true },
   { name: "Friends", page: "friends", current: false },
 ];
 
+const cookies = new Cookies();
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Header = () => {
+  const { client } = useChatContext();
   const dispatch = useDispatch();
   const profileUrl = useSelector((state) => state.uploadImage.profileUrl);
   const displayHome = useSelector((state) => state.show.displayHome);
   const displaySearch = useSelector((state) => state.show.displaySearch);
+  const removeToken = () => {
+    dispatch(authenticationActions.token());
+  };
   const setDisplayHomePage = (e) => {
     dispatch(showActions.displayHome(e));
   };
@@ -31,12 +41,16 @@ const Header = () => {
   const setDisplaySearchPage = (e) => {
     dispatch(showActions.displaySearch(e));
   };
+  const setDisplayViewProfile = (e) => {
+    dispatch(showActions.displayViewProfile(e));
+  };
   const displayPage = (page) => {
     console.log(page);
     if (page === "home") {
       displayBasePage();
       setDisplaySearchPage(false);
       setDisplayHomePage(true);
+      setDisplayViewProfile(false);
     }
 
     if (page === "friends") {
@@ -45,6 +59,17 @@ const Header = () => {
       setDisplaySearchPage(true);
     }
   };
+
+  const logout = () => {
+    const apiKey = "hz6p2252afpv";
+    const client = StreamChat.getInstance(apiKey);
+    removeToken();
+    localStorage.removeItem("userIsLoggedIn");
+    localStorage.removeItem("email");
+    client.disconnectUser();
+    window.location.reload();
+  };
+
   return (
     <Disclosure as="nav" className="header">
       {({ open }) => (
@@ -70,40 +95,34 @@ const Header = () => {
                     alt="Logo"
                   />
                   <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                    className="hidden lg:block h-8 w-auto logo-large"
+                    src={logo}
                     alt="Workflow"
                   />
                 </div>
                 <div className="hidden sm:block sm:ml-6">
-                  <div className="flex space-x-4">
+                  <div className="flex space-x-4 m-auto">
                     {navigation.map((item) => (
-                      <p
+                      <button
                         key={item.name}
-                        href={item.href}
+                        onClick={() => {
+                          displayPage(item.page);
+                        }}
                         className={classNames(
                           item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
+                            ? "bg-gray-900 text-gray-300  hover:bg-gray-700 focus:bg-gray-700 focus:text-white"
+                            : " hover:bg-gray-700 hover:text-white",
+                          "block px-3 py-2 rounded-md text-base font-medium bg-gray-900 hover:text-white focus:bg-gray-700 focus:text-white"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </p>
+                      </button>
                     ))}
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
                   <div>
@@ -130,6 +149,9 @@ const Header = () => {
                         {({ active }) => (
                           <a
                             href="#"
+                            onClick={() => {
+                              displayPage("home");
+                            }}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
@@ -143,19 +165,7 @@ const Header = () => {
                         {({ active }) => (
                           <a
                             href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
+                            onClick={logout}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"

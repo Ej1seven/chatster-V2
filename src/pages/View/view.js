@@ -1,15 +1,19 @@
 import { React } from "react";
 import { useSelector } from "react-redux";
-
+import { IKImage } from "imagekitio-react";
 import "./view.css";
 
 const View = () => {
+  const urlEndpoint = "  https://ik.imagekit.io/f8sxidbb7he/";
+
   const guest = useSelector((state) => state.form.guestUser);
   let viewProfilePhoto;
   let numberOfFollowers = [];
   let numberOfPeopleImFollowing = [];
   let formattedFollowerData;
   let formattedFollowingData;
+  let photoGalleryList;
+  console.log(guest);
   if (guest.followers) {
     formattedFollowerData = Object.entries(guest.followers).map((key) => {
       return key;
@@ -35,10 +39,22 @@ const View = () => {
     viewProfilePhoto = "";
   }
 
+  if (guest.photoGallery) {
+    let photos = [];
+    let formattedData = Object.entries(guest.photoGallery).map((key) => {
+      return key;
+    });
+    console.log(formattedData);
+    for (var j = 0; j < formattedData.length; j++) {
+      photos.push(formattedData[j][1]);
+    }
+    console.log(photos);
+    photoGalleryList = photos;
+  }
   return (
     <div>
       {" "}
-      <div className="view-profile-image-container">
+      <div className="view-profile-image-container mt-8">
         <img
           className="h-40 w-40 rounded-full object-cover"
           src={viewProfilePhoto}
@@ -58,6 +74,22 @@ const View = () => {
           <p className="view-followers-following-chats-heading">Following</p>
         </div>
       </div>
+      {photoGalleryList && (
+        <div className="picture-grid view-profile-grid">
+          {photoGalleryList.map((photo) => {
+            return (
+              <div className="photo-container object-scale-down">
+                {/* <img className="gallery-image" src={photo} /> */}
+                <IKImage
+                  className="gallery-image"
+                  urlEndpoint={urlEndpoint}
+                  src={photo}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

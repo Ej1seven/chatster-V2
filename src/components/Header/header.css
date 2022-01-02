@@ -2,3 +2,16 @@
   min-height: 10%;
   background: #060118;
 }
+
+.logo-large {
+  height: 10vh;
+}
+
+#root
+  > div
+  > nav
+  > div.max-w-7xl.mx-auto.px-2.sm\:px-6.lg\:px-8
+  > div
+  > div.flex-1.flex.items-center.justify-center.sm\:items-stretch.sm\:justify-start {
+  align-items: center;
+}
