@@ -3,10 +3,18 @@ import { database } from "../../firebase/index";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { formActions, showActions } from "../../store/index";
+import BeatLoader from "react-spinners/BeatLoader";
+import { css } from "@emotion/react";
 
 import "./search.css";
 
 const Search = () => {
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+  `;
+
   const dispatch = useDispatch();
   const email = useSelector((state) => state.form.email);
   const userList = useSelector((state) => state.form.usersList);
@@ -26,6 +34,7 @@ const Search = () => {
   let followerUserId;
   let [modalPrompt, setModalPrompt] = useState("");
   let [selectedUser, setSelectedUser] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   let isFollowingStatus = "";
   let peopleElement = document.getElementById("people-tab");
   let followingElement = document.getElementById("following-tab");
@@ -139,6 +148,7 @@ const Search = () => {
   };
 
   const removeFriend = (user) => {
+    setIsLoading(true);
     fetch(
       `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/following.json`
     )
@@ -172,6 +182,7 @@ const Search = () => {
   };
 
   const addFriend = (user) => {
+    setIsLoading(true);
     console.log(user);
     fetch(
       `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/following.json`
@@ -211,6 +222,7 @@ const Search = () => {
                   );
                 }
                 setTimeout(() => {
+                  setIsLoading(false);
                   window.location.reload();
                 }, 1500);
               });
@@ -257,6 +269,7 @@ const Search = () => {
                   }
                 }
                 setTimeout(() => {
+                  setIsLoading(false);
                   window.location.reload();
                 }, 1500);
               });
@@ -407,16 +420,29 @@ const Search = () => {
                         <div class="modal-box m-auto">
                           <p>{modalPrompt}</p>
                           <div class="modal-action">
-                            <label
-                              for="my-modal-2"
-                              class="btn btn-primary"
-                              onClick={() => addFriend(selectedUser)}
-                            >
-                              Accept
-                            </label>
-                            <label for="my-modal-2" class="btn">
-                              Close
-                            </label>
+                            {!isLoading ? (
+                              <>
+                                <label
+                                  for="my-modal-2"
+                                  class="btn btn-primary"
+                                  onClick={() => addFriend(selectedUser)}
+                                >
+                                  Accept
+                                </label>
+                                <label for="my-modal-2" class="btn">
+                                  Close
+                                </label>
+                              </>
+                            ) : (
+                              <>
+                                {" "}
+                                <BeatLoader
+                                  color="#ffffff"
+                                  css={override}
+                                  size={50}
+                                />
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
