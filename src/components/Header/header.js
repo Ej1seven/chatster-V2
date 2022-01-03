@@ -123,7 +123,7 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
                 {/* Profile dropdown */}
                 <Menu as="div" className="ml-3 relative">
                   <div>
@@ -155,7 +155,7 @@ const Header = () => {
                             }}
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "block px-4 py-2 text-sm text-black bg-white   hover:bg-gray-300"
                             )}
                           >
                             Your Profile
@@ -169,7 +169,7 @@ const Header = () => {
                             onClick={logout}
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "block px-4 py-2 text-sm text-black bg-white  hover:bg-gray-300"
                             )}
                           >
                             Sign out
