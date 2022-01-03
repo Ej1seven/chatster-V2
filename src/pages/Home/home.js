@@ -10,7 +10,7 @@ import { css } from "@emotion/react";
 import BeatLoader from "react-spinners/BeatLoader";
 import "./home.css";
 
-const apiKey = "hz6p2252afpv";
+const apiKey = "wsrkmp4su547";
 
 const client = StreamChat.getInstance(apiKey);
 

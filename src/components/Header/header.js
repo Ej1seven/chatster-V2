@@ -62,7 +62,7 @@ const Header = () => {
   };
 
   const logout = () => {
-    const apiKey = "hz6p2252afpv";
+    const apiKey = "wsrkmp4su547";
     const client = StreamChat.getInstance(apiKey);
     removeToken();
     localStorage.removeItem("userIsLoggedIn");
