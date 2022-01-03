@@ -63,7 +63,9 @@ const TeamChannelList = ({
     return type === "team" ? (
       <div className="team-channel-list">
         <p className="team-channel-list__message">
-          Connection error, please wait a moment and try again.
+          Connection error, please click the refresh button to reload your
+          chats. If the connection error persist, please logout then log back
+          end.
         </p>
         <img
           src={photo}

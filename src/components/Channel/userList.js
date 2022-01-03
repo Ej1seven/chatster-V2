@@ -78,6 +78,7 @@ const UserList = ({ user, setSelectedUsers }) => {
         );
 
         if (response.users.length) {
+          console.log(response.users);
           setUsers(response.users);
         } else {
           setListEmpty(true);
