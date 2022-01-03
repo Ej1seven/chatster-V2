@@ -429,7 +429,11 @@ const Search = () => {
                                 >
                                   Accept
                                 </label>
-                                <label for="my-modal-2" class="btn">
+                                <label
+                                  for="my-modal-2"
+                                  class="btn"
+                                  onClick={() => setModal(false)}
+                                >
                                   Close
                                 </label>
                               </>
@@ -488,7 +492,11 @@ const Search = () => {
                                 >
                                   UNFOLLOW
                                 </label>
-                                <label for="my-modal-2" class="btn">
+                                <label
+                                  for="my-modal-2"
+                                  class="btn"
+                                  onClick={() => setModal(false)}
+                                >
                                   Close
                                 </label>
                               </div>
@@ -533,7 +541,11 @@ const Search = () => {
                             >
                               Accept
                             </label>
-                            <label for="my-modal-2" class="btn">
+                            <label
+                              for="my-modal-2"
+                              class="btn"
+                              onClick={() => setModal(false)}
+                            >
                               Close
                             </label>
                           </div>
