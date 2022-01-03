@@ -502,7 +502,12 @@ const Search = () => {
                               </div>
                             </div>
                           </div>
-                          <div className="btn btn-ghost">VIEW PROFILE</div>
+                          <div
+                            className="btn btn-ghost"
+                            onClick={() => viewProfile(user)}
+                          >
+                            VIEW PROFILE
+                          </div>
                         </div>
                       </div>
                     );
@@ -551,7 +556,12 @@ const Search = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="btn btn-ghost">VIEW PROFILE</div>
+                      <div
+                        className="btn btn-ghost"
+                        onClick={() => viewProfile(user)}
+                      >
+                        VIEW PROFILE
+                      </div>
                     </div>
                   </div>
                 );
