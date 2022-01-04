@@ -371,6 +371,23 @@
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+#root
+  > div
+  > div.channel__container
+  > div
+  > div
+  > div
+  > div
+  > div.str-chat__list
+  > div
+  > ul
+  > li
+  > div
+  > div.str-chat__message-team-meta
+  > time {
+  color: white;
+}
+
 .str-chat__thread-list .str-chat__message-actions-list button:first-child {
   display: none;
 }
