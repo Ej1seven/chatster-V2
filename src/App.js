@@ -16,6 +16,8 @@ import {
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
 import Cookies from "universal-cookie";
+import { css } from "@emotion/react";
+import BeatLoader from "react-spinners/BeatLoader";
 import { ChannelContainer, ChannelListContainer } from "./components/Channel";
 import "./App.css";
 import "stream-chat-react/dist/css/index.css";
@@ -29,6 +31,11 @@ const cookies = new Cookies();
 const authToken = cookies.get("streamToken");
 
 function App() {
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+  `;
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authenticate.token);
   const email = useSelector((state) => state.form.email);

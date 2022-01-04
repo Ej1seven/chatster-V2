@@ -223,7 +223,7 @@ const Login = () => {
                 type="email"
                 name="email"
                 onChange={handleEmailChanged}
-                className="rounded m-5 bg-transparent border-2 border-white w-3/5 "
+                className="rounded m-5 bg-transparent border-2 border-white w-3/5 focus:text-white"
                 placeholder="Email"
               />
 
@@ -231,7 +231,7 @@ const Login = () => {
                 type={!showPassword ? "password" : "text"}
                 name="password"
                 onChange={handlePasswordChanged}
-                className="rounded m-5 bg-transparent border-2 border-white w-3/5 "
+                className="rounded m-5 bg-transparent border-2 border-white w-3/5 focus:text-white"
                 placeholder="Password"
                 id="password"
               />

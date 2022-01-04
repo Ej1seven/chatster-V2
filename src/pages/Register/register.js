@@ -136,28 +136,28 @@ const Register = () => {
       <input
         type="text"
         onChange={handleDisplayNameChanged}
-        className="rounded m-5 bg-transparent border-2 border-white w-4/5 "
+        className="rounded m-5 bg-transparent border-2 border-white w-4/5 focus:text-white"
         placeholder="Display Name"
         required
       />
       <input
         type="text"
         onChange={handleFirstNameChanged}
-        className="rounded m-5 bg-transparent border-2 border-white w-4/5 "
+        className="rounded m-5 bg-transparent border-2 border-white w-4/5 focus:text-white"
         placeholder="First Name"
         required
       />
       <input
         type="text"
         onChange={handleLastNameChanged}
-        className="rounded m-5 bg-transparent border-2 border-white w-4/5 "
+        className="rounded m-5 bg-transparent border-2 border-white w-4/5 focus:text-white"
         placeholder="Last Name"
         required
       />
       <input
         type="text"
         onChange={handlePhoneNumberChanged}
-        className="rounded m-5 bg-transparent border-2 border-white w-4/5 "
+        className="rounded m-5 bg-transparent border-2 border-white w-4/5 focus:text-white"
         placeholder="Phone Number"
         required
       />
@@ -166,14 +166,14 @@ const Register = () => {
           <input
             type="email"
             onChange={handleEmailChanged}
-            className="rounded m-5 bg-transparent border-2 border-white w-4/5 "
+            className="rounded m-5 bg-transparent border-2 border-white w-4/5 focus:text-white"
             placeholder="Email"
             required
           />
           <input
             type="password"
             onChange={handlePasswordChanged}
-            className="rounded m-5 bg-transparent border-2 border-white w-4/5 "
+            className="rounded m-5 bg-transparent border-2 border-white w-4/5 focus:text-white"
             placeholder="Password"
             required
           />
