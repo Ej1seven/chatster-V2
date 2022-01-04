@@ -55,7 +55,7 @@ const Search = () => {
   };
   console.log(userList);
   console.log(userId);
-  console.log(followerUsers);
+  console.log(followingUsers);
 
   useEffect(() => {
     updateFollowingList();
@@ -113,8 +113,10 @@ const Search = () => {
     }
   };
   console.log(following);
+  console.log(followers);
 
   const updateFollowingList = () => {
+    console.log(userList);
     if (following) {
       let usersArray = [];
       if (userList) {
@@ -133,16 +135,20 @@ const Search = () => {
     console.log(followingUsers);
 
     if (followers) {
+      console.log(followers);
       let usersArray = [];
       if (userList) {
         for (var j = 0; j < userList.length; j++) {
           console.log(followers[j]);
           console.log(userList[j].email);
-          if (followers[j] === userList[j].email) {
-            usersArray.push(userList[j]);
+          for (var x = 0; x < followers.length; x++) {
+            if (followers[x] === userList[j].email) {
+              usersArray.push(userList[j]);
+            }
           }
         }
       }
+      console.log(usersArray);
       setFollowerUsers(usersArray);
     }
   };
@@ -168,6 +174,7 @@ const Search = () => {
           }
         }
         setTimeout(() => {
+          setIsLoading(false);
           window.location.reload();
         }, 1500);
       });
