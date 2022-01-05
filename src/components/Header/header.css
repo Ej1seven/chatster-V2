@@ -7,6 +7,10 @@
   height: 10vh;
 }
 
+.header-button {
+  color: #8d8d98;
+}
+
 #root
   > div
   > nav
