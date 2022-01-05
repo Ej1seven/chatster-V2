@@ -188,6 +188,11 @@ const Search = () => {
     console.log(user);
   };
 
+  const viewProfileFollowing = (user) => {
+    let editedUser = user[0];
+    viewProfile(editedUser);
+  };
+
   const addFriend = (user) => {
     setIsLoading(true);
     console.log(user);
@@ -511,7 +516,7 @@ const Search = () => {
                           </div>
                           <div
                             className="btn btn-ghost"
-                            onClick={() => viewProfile(user)}
+                            onClick={() => viewProfileFollowing(user)}
                           >
                             VIEW PROFILE
                           </div>
