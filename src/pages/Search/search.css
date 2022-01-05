@@ -39,6 +39,10 @@
   align-items: center;
 }
 
+.btn-ghost {
+  color: white;
+}
+
 #root
   > div
   > div:nth-child(5)
