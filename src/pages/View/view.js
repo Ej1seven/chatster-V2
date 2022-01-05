@@ -61,16 +61,20 @@ const View = () => {
           alt=""
           id="profile-photo"
         />
-        <p className="text-3xl mt-6 font-semibold">{guest.displayName}</p>
-        <p className="text-lg mb-2 font-thin">{guest.email}</p>
+        <p className="text-3xl mt-6 font-semibold text-white">
+          {guest.displayName}
+        </p>
+        <p className="text-lg mb-2 font-thin text-white">{guest.email}</p>
       </div>
       <div className="view-followers-following-chats flex flex-row justify-around items-center text-center divide-x ">
         <div className="flex-1">
-          <p className="text-3xl">{numberOfFollowers.length}</p>
+          <p className="text-3xl text-white">{numberOfFollowers.length}</p>
           <p className="view-followers-following-chats-heading">Followers</p>
         </div>
         <div className="flex-1">
-          <p className="text-3xl">{numberOfPeopleImFollowing.length}</p>
+          <p className="text-3xl text-white">
+            {numberOfPeopleImFollowing.length}
+          </p>
           <p className="view-followers-following-chats-heading">Following</p>
         </div>
       </div>
