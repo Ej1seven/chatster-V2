@@ -378,7 +378,7 @@ const Search = () => {
         <div class="flex border-2 rounded search-bar">
           <input
             type="text"
-            class="px-4 py-2 w-80 text-black"
+            class="px-4 py-2 w-80 text-black focus:text-white"
             placeholder="Search..."
             id="user-input"
           />
