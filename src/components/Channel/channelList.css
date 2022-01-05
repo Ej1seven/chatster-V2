@@ -633,6 +633,10 @@
   cursor: pointer;
 }
 
+.fa-facebook-messenger {
+  color: white;
+}
+
 ::placeholder {
   color: rgba(255, 255, 255, 0.66);
   white-space: nowrap;
