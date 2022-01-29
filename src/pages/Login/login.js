@@ -117,6 +117,7 @@ const Login = () => {
         }
       })
       .then((data) => {
+        console.log(data);
         if (!data) {
           return setShowAlertMessage(true);
         }
