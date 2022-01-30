@@ -77,7 +77,7 @@ const ChannelListContent = ({
   };
 
   const logout = () => {
-    const apiKey = "wsrkmp4su547";
+    const apiKey = "zge5f39fgjv7";
     const client = StreamChat.getInstance(apiKey);
     // cookies.remove("streamToken");
     // cookies.remove("streamUserId");
