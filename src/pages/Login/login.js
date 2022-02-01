@@ -76,7 +76,7 @@ const Login = () => {
           return setShowAlertMessage(true);
         }
         tokenHandler(data.idToken);
-        localStorage.setItem("userIsLoggedIn", data.idToken);
+        localStorage.setItem("accountToken", data.idToken);
         localStorage.setItem("email", email);
         fetch(
           "https://chat-application-db-default-rtdb.firebaseio.com/profile.json"

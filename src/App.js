@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 //Imported routing components from react-router-dom
 import { Switch, Route } from "react-router-dom";
-//Importing pages
+//Importing pages that can be accessed through react router
 import Login from "../src/pages/Login/login";
 import Home from "../src/pages/Home/home";
 import Search from "../src/pages/Search/search";
@@ -25,18 +25,19 @@ import {
 //imports Chat services from the Stream API
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
+import { ChannelContainer, ChannelListContainer } from "./components/Channel";
+//Importing cookies which will be used to set the properties needed to connect to the Stream API
 import Cookies from "universal-cookie";
 import { css } from "@emotion/react";
-import { ChannelContainer, ChannelListContainer } from "./components/Channel";
 import "./App.css";
 import "stream-chat-react/dist/css/index.css";
-
+//apiKey is used to create an instance for the client to use Stream
 const apiKey = "zge5f39fgjv7";
-
+//client StreamChat instance
 const client = StreamChat.getInstance(apiKey);
-
+//cookies will be used to set the properties needed to connect to the Stream API
 const cookies = new Cookies();
-
+//the token received from the server after the user has successfully logged into the Stream API
 const authToken = cookies.get("streamToken");
 
 function App() {
@@ -45,62 +46,88 @@ function App() {
     margin: 0 auto;
     border-color: red;
   `;
+  //Hook used to access the redux store and make changes to state
   const dispatch = useDispatch();
+  //Token provided bu Firebase Authentication once the user has successfully logged in
   const token = useSelector((state) => state.authenticate.token);
+  //Email provided by the user at login
   const email = useSelector((state) => state.form.email);
+  //Used to determine if the user is creating or editing a new channel
   const isCreating = useSelector((state) => state.channel.isCreating);
   const isEditing = useSelector((state) => state.channel.isEditing);
+  //Used to determine if the user is creating a direct message or group message
   const createType = useSelector((state) => state.channel.createType);
+  //toggles the sidebar
   const display = useSelector((state) => state.show.displayComponent);
+  //toggles the homepage
   const displayHome = useSelector((state) => state.show.displayHome);
+  //toggles the friends page
   const displaySearch = useSelector((state) => state.show.displaySearch);
+  //toggles the view user profile page
   const displayViewProfile = useSelector(
     (state) => state.show.displayViewProfile
   );
-
+  //checks if token value is true in the redux store
+  //If the token value is true then the user is automatically logged in
   const isLoggedIn = !!token;
+  //updated the users display name in redux store
   const handleDisplayNameChanged = (e) => {
     dispatch(formActions.displayName(e));
   };
+  //updated the users first name in redux store
   const handleFirstNameChanged = (e) => {
     dispatch(formActions.firstName(e));
   };
+  //updated the users last name in redux store
   const handleLastNameChanged = (e) => {
     dispatch(formActions.lastName(e));
   };
+  //updated the users id in redux store
   const handleIdChanged = (e) => {
     dispatch(formActions.id(e));
   };
+  //updated the users following list in redux store
   const following = (e) => {
     dispatch(formActions.following(e));
   };
+  //updated the users followers list in redux store
+
   const followers = (e) => {
     dispatch(formActions.followers(e));
   };
+  //list of all the users in the database in raw form
   const handleUneditedUserListChanged = (e) => {
     dispatch(formActions.uneditedUserList(e));
   };
+  //list of all the users the current user is following in the database in raw form
   const handleUneditedFollowingListChanged = (e) => {
     dispatch(formActions.uneditedFollowingList(e));
   };
+  //list of all the users in alphabetized order
   const handleUserListChanged = (e) => {
     dispatch(formActions.usersList(e));
   };
+  //Adds the users profile photo url to redux store
   const handleProfilePhoto = (e) => {
     dispatch(uploadImageActions.profileUrl(e));
   };
+  //Adds the users profile id to redux store
   const handleProfileId = (e) => {
     dispatch(uploadImageActions.photoId(e));
   };
+  //Adds all the users profile ids to redux store
   const handleProfileIds = (e) => {
     dispatch(uploadImageActions.photoIds(e));
   };
+  //Add the total number of user profiles to redux store
   const handleProfileCount = (e) => {
     dispatch(uploadImageActions.photoCount(e));
   };
+  //Adds all the users photos urls to redux store
   const handlePhotoGalleryList = (e) => {
     dispatch(uploadImageActions.photoGalleryList(e));
   };
+  //Adds the data used by the Stream API to redux store
   const streamTokenHandler = (streamToken) => {
     dispatch(getStreamActions.streamToken(streamToken));
   };
@@ -122,42 +149,55 @@ function App() {
   const hashedPasswordHandler = (hashedPassword) => {
     dispatch(getStreamActions.hashedPassword(hashedPassword));
   };
+  //Changes the create type to either direct or group
   const createTypeHandler = (createType) => {
     dispatch(getStreamChannelActions.createType(createType));
   };
+  //Determines if the user is creating a new channel or not
   const isCreatingHandler = (value) => {
     dispatch(getStreamChannelActions.isCreating(value));
   };
+  //Determines if the user is editing a existing channel or not
   const isEditingHandler = () => {
     dispatch(getStreamChannelActions.isEditing());
   };
+  //Adds the token provided by Firebase Authentication to the database
   const tokenHandler = (token) => {
     dispatch(authenticationActions.token(token));
   };
+  //updates the users email in redux store
   const handleEmailChanged = (e) => {
     dispatch(formActions.email(e));
   };
-
+  //When the App.js file is mounted or updated the useffect hook is ran to check
+  //for the token in local storage
   useEffect(() => {
-    let isUserLogin = localStorage.getItem("userIsLoggedIn");
+    let isUserLogin = localStorage.getItem("accountToken");
     let email = localStorage.getItem("email");
+    //if the token is in localStorage the tokenhandler() adds the token to redux store
+    //which in turn logs the user in
     if (isUserLogin) {
       handleEmailChanged(email);
       tokenHandler(isUserLogin);
     }
   }, [token]);
-
+  //once the user is logged in multiple fetch request are sent to Firebase Realtime Database pulling the users profile data
   if (isLoggedIn) {
+    //this fetch request pulls all the profiles from the database
     fetch(
       "https://chat-application-db-default-rtdb.firebaseio.com/profile.json"
     )
       .then((response) => response.json())
       .then((data) => {
+        //when the profiles are first pulled from the database the data is presented as one object filled multiple objects
         let usersArray = [];
+        //this function separates all the objects and puts them into an array for easier use later on
         let users = Object.entries(data).map((key) => {
           return key;
         });
+        //this function stores the users array in the redux store
         handleUneditedUserListChanged(users);
+        //formattedUserList provides an array of all the users not including current user that is signed in
         let formattedUserList = users.filter(
           (userProfile) => userProfile[1].email !== email
         );

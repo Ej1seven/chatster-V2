@@ -75,7 +75,7 @@ const ChannelListContent = ({
     const apiKey = "zge5f39fgjv7";
     const client = StreamChat.getInstance(apiKey);
     removeToken();
-    localStorage.removeItem("userIsLoggedIn");
+    localStorage.removeItem("accountToken");
     localStorage.removeItem("email");
     client.disconnectUser();
     window.location.reload();
