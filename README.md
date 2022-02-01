@@ -4,4 +4,4 @@
 
 # Chatster
 
-The Bug-Tracker application is a ticket management system that enables a group of users to effectively track issues. This application enables users to create, modify and remove tickets. Users can also add comments to tickets as well as check ticket history. This application includes additional features such as authorization, user role assignment, and project management. Feel free to check out my project at [https://bug-tracker.dev](https://bug-tracker.dev)
+Chatster is a messaging app which allows users to communicate through direct messages and group messages. This application includes additional features such as profile personalization, file sharing, authentication, the ability to add and remove friends, and much more. I used a very powerful messaging API named Stream to assist in creating this application. Feel free to check out my project [Chatster](https://zen-lewin-7c5d55.netlify.app)
