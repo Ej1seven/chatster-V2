@@ -114,9 +114,6 @@ const Register = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        console.log(data.token);
-        console.log(data.userId);
         cookies.set("streamToken", data.token);
         cookies.set("streamUserId", data.userId);
         cookies.set("username", displayName);

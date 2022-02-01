@@ -1,7 +1,6 @@
 import React from "react";
 import "./header.css";
 import logo from "../../photos/logo-white.png";
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
@@ -17,18 +16,13 @@ const navigation = [
   { name: "Friends", page: "friends", current: false },
 ];
 
-const cookies = new Cookies();
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Header = () => {
-  const { client } = useChatContext();
   const dispatch = useDispatch();
   const profileUrl = useSelector((state) => state.uploadImage.profileUrl);
-  const displayHome = useSelector((state) => state.show.displayHome);
-  const displaySearch = useSelector((state) => state.show.displaySearch);
   const removeToken = () => {
     dispatch(authenticationActions.token());
   };

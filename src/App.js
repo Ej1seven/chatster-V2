@@ -1,23 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+//Imported routing components from react-router-dom
 import { Switch, Route } from "react-router-dom";
+//Importing pages
 import Login from "../src/pages/Login/login";
 import Home from "../src/pages/Home/home";
 import Search from "../src/pages/Search/search";
 import View from "../src/pages/View/view";
+//Importing header
 import Header from "./components/Header/header";
-import { useSelector, useDispatch, connect } from "react-redux";
+//Importing Redux components
+import { useSelector, useDispatch } from "react-redux";
 import {
+  //reducer used to import user/export profile data
   formActions,
+  //reducer used to import/export images
   uploadImageActions,
+  //reducer used to import/export user profile data in Stream
   getStreamActions,
+  //reducer used when manipulating channels in Stream
   getStreamChannelActions,
+  //reducer used when authenticating users
   authenticationActions,
 } from "./store/index";
+//imports Chat services from the Stream API
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
 import Cookies from "universal-cookie";
 import { css } from "@emotion/react";
-import BeatLoader from "react-spinners/BeatLoader";
 import { ChannelContainer, ChannelListContainer } from "./components/Channel";
 import "./App.css";
 import "stream-chat-react/dist/css/index.css";
@@ -39,24 +48,6 @@ function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authenticate.token);
   const email = useSelector((state) => state.form.email);
-  const photoCount = useSelector((state) => state.uploadImage.photoCount);
-  const profileUrl = useSelector((state) => state.uploadImage.profileUrlFinal);
-  const displayName = useSelector((state) => state.form.displayName);
-  const profileUrlFinal = useSelector(
-    (state) => state.uploadImage.profileUrlFinal
-  );
-  const id = useSelector((state) => state.form.id);
-  const phoneNumber = useSelector((state) => state.form.phoneNumber);
-  const firstName = useSelector((state) => state.form.firstName);
-  const lastName = useSelector((state) => state.form.lastName);
-  const password = useSelector((state) => state.form.password);
-  const streamToken = useSelector((state) => state.stream.streamToken);
-  const userId = useSelector((state) => state.stream.streamUserId);
-  const username = useSelector((state) => state.stream.username);
-  const fullName = useSelector((state) => state.stream.fullName);
-  const avatarURL = useSelector((state) => state.stream.avatarURL);
-  const streamPhoneNumber = useSelector((state) => state.stream.phoneNumber);
-  const hashedPassword = useSelector((state) => state.stream.hashedPassword);
   const isCreating = useSelector((state) => state.channel.isCreating);
   const isEditing = useSelector((state) => state.channel.isEditing);
   const createType = useSelector((state) => state.channel.createType);
@@ -131,9 +122,6 @@ function App() {
   const hashedPasswordHandler = (hashedPassword) => {
     dispatch(getStreamActions.hashedPassword(hashedPassword));
   };
-  const passwordHandler = (password) => {
-    dispatch(getStreamActions.password(password));
-  };
   const createTypeHandler = (createType) => {
     dispatch(getStreamChannelActions.createType(createType));
   };
@@ -153,7 +141,6 @@ function App() {
   useEffect(() => {
     let isUserLogin = localStorage.getItem("userIsLoggedIn");
     let email = localStorage.getItem("email");
-
     if (isUserLogin) {
       handleEmailChanged(email);
       tokenHandler(isUserLogin);
@@ -226,7 +213,6 @@ function App() {
           .then((data) => {
             if (data) {
               let followingUsers = [];
-              let uneditedFollowingUsers;
               let formattedData = Object.entries(data).map((key) => {
                 return key;
               });
@@ -283,7 +269,6 @@ function App() {
                 photos.push(formattedData[j][1]);
               }
               handlePhotoGalleryList(photos);
-              // followers(followerUsers);
             }
           });
         if (authToken) {

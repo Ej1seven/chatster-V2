@@ -8,10 +8,6 @@ import { ChannelSearch, TeamChannelList, TeamChannelPreview } from "./";
 import logo from "../../photos/logo-black-min.png";
 import "./channelList.css";
 
-const cookies = new Cookies();
-
-const chatIcon = document.querySelector(".sidebar-tab");
-
 const SideBar = ({ logout }) => (
   <div className="channel-list__sidebar">
     <div className="channel-list__sidebar__icon1">
@@ -59,7 +55,6 @@ const ChannelListContent = ({
   setToggleContainer,
 }) => {
   const { client } = useChatContext();
-  console.log(client);
   const dispatch = useDispatch();
   const displayBasePage = useSelector((state) => state.show.displayHomeBase);
 
@@ -79,14 +74,6 @@ const ChannelListContent = ({
   const logout = () => {
     const apiKey = "zge5f39fgjv7";
     const client = StreamChat.getInstance(apiKey);
-    // cookies.remove("streamToken");
-    // cookies.remove("streamUserId");
-    // cookies.remove("username");
-    // cookies.remove("fullName");
-    // cookies.remove("avatarURL");
-    // cookies.remove("hashedPassword");
-    // cookies.remove("phoneNumber");
-    // cookies.remove("password");
     removeToken();
     localStorage.removeItem("userIsLoggedIn");
     localStorage.removeItem("email");
@@ -107,7 +94,6 @@ const ChannelListContent = ({
   };
   const filters = { members: { $in: [client.userID] } };
   const SidebarTab = () => (
-    // <div className="sidebar-tab" onClick={openSidebar}>
     <div>
       <i
         class="fab fa-facebook-messenger sidebar-tab fa-2x"

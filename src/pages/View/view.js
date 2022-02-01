@@ -13,7 +13,6 @@ const View = () => {
   let formattedFollowerData;
   let formattedFollowingData;
   let photoGalleryList;
-  console.log(guest);
   if (guest.followers) {
     formattedFollowerData = Object.entries(guest.followers).map((key) => {
       return key;
@@ -34,7 +33,6 @@ const View = () => {
   if (guest.profilePhoto) {
     let photo = Object.keys(guest.profilePhoto);
     viewProfilePhoto = guest.profilePhoto[photo];
-    console.log(viewProfilePhoto);
   } else {
     viewProfilePhoto = "";
   }
@@ -44,11 +42,9 @@ const View = () => {
     let formattedData = Object.entries(guest.photoGallery).map((key) => {
       return key;
     });
-    console.log(formattedData);
     for (var j = 0; j < formattedData.length; j++) {
       photos.push(formattedData[j][1]);
     }
-    console.log(photos);
     photoGalleryList = photos;
   }
   return (
@@ -83,7 +79,6 @@ const View = () => {
           {photoGalleryList.map((photo) => {
             return (
               <div className="photo-container object-scale-down">
-                {/* <img className="gallery-image" src={photo} /> */}
                 <IKImage
                   className="gallery-image"
                   urlEndpoint={urlEndpoint}

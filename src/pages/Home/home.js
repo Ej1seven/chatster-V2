@@ -22,7 +22,6 @@ const Home = () => {
     margin: 0 auto;
     border-color: red;
   `;
-  console.log(client.activeChannels);
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.load.showLoadingIcon);
   const following = useSelector((state) => state.form.following);
@@ -50,9 +49,7 @@ const Home = () => {
   const photoId = useSelector((state) => state.uploadImage.photoId);
   const photoIds = useSelector((state) => state.uploadImage.photoIds);
   const photoCount = useSelector((state) => state.uploadImage.photoCount);
-  const hidePhoto = false;
   const urlEndpoint = "  https://ik.imagekit.io/f8sxidbb7he/";
-  const publicKey = "public_ygzD+eaCJ8qx4ht1OgebJbMIM/Y=";
 
   const [photoList, setPhotoList] = useState([]);
   const loadingHandler = () => {
@@ -84,7 +81,6 @@ const Home = () => {
 
   useEffect(() => {
     if (!profileUrl) {
-      console.log(profileUrlFinal);
       if (profileUrlFinal) {
         document.getElementById("profile-photo").src = profileUrlFinal;
       } else {
@@ -99,16 +95,12 @@ const Home = () => {
         .then((data) => {
           if (data) {
             let photos = [];
-            console.log("photo gallery", data);
             let formattedData = Object.entries(data).map((key) => {
               return key;
             });
-            console.log(formattedData);
-
             for (var j = 0; j < formattedData.length; j++) {
               photos.push(formattedData[j][1]);
             }
-            console.log(photos);
             handlePhotoGalleryList(photos);
           }
         });
@@ -123,15 +115,12 @@ const Home = () => {
 
   useEffect(() => {
     if (imageGalleryPhoto) {
-      console.log(imageGalleryPhoto);
       handleUpload();
     }
-    console.log(photoGalleryList);
   }, [imageGalleryPhoto]);
 
   useEffect(() => {
     if (photoGalleryUrl) {
-      console.log(photoGalleryUrl);
       fetch(
         `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/photoGallery.json`,
         {
@@ -147,16 +136,12 @@ const Home = () => {
           .then((data) => {
             if (data) {
               let photos = [];
-              console.log("photo gallery", data);
               let formattedData = Object.entries(data).map((key) => {
                 return key;
               });
-              console.log(formattedData);
-
               for (var j = 0; j < formattedData.length; j++) {
                 photos.push(formattedData[j][1]);
               }
-              console.log(photos);
               dispatch(uploadImageActions.photoGalleryUpload(""));
               dispatch(uploadImageActions.photoGalleryUrl(""));
 
@@ -166,13 +151,11 @@ const Home = () => {
         loadingHandler();
       });
     }
-    console.log(photoGalleryUrl);
   }, [photoGalleryUrl]);
 
   useEffect(() => {
     if (profileUrl) {
       if (photoCount > 0) {
-        console.log(photoIds);
         for (let i = 0; i < photoIds.length; i++) {
           if (photoIds[i] !== photoId) {
             let userRef = database.ref(
@@ -190,7 +173,6 @@ const Home = () => {
           body: JSON.stringify(profileUrl),
         }
       ).then((response) => {
-        console.log(response);
         if (response.ok) {
           fetch(
             `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/profilePhoto.json`
@@ -214,9 +196,6 @@ const Home = () => {
         } else {
           return response.json().then((data) => {
             let errorMessage = "Authentication failed!";
-            // if (data && data.error && data.error.message) {
-            //   errorMessage = data.error.message;
-            // }
             throw new Error(errorMessage);
           });
         }
@@ -337,7 +316,6 @@ const Home = () => {
           {photoGalleryList.map((photo) => {
             return (
               <div className="photo-container object-scale-down">
-                {/* <img className="gallery-image" src={photo} /> */}
                 <IKImage
                   className="gallery-image"
                   urlEndpoint={urlEndpoint}

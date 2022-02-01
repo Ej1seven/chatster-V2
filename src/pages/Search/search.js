@@ -53,9 +53,6 @@ const Search = () => {
   const displaySearch = (e) => {
     dispatch(showActions.displaySearch(e));
   };
-  console.log(userList);
-  console.log(userId);
-  console.log(followingUsers);
 
   useEffect(() => {
     updateFollowingList();
@@ -65,7 +62,6 @@ const Search = () => {
     setModal(!modal);
     setModalPrompt(`Are you sure want to follow ${user.email}`);
     for (var j = 0; j < userList.length; j++) {
-      console.log(following[j]);
       if (user.email === following[j]) {
         setModalPrompt(`Are you sure want to unfollow ${user.email}`);
       }
@@ -74,11 +70,8 @@ const Search = () => {
   };
 
   const isFollowingButton = (userEmail) => {
-    console.log(userEmail);
-    console.log(following);
     isFollowingStatus = "FOllOW";
     for (var j = 0; j < userList.length; j++) {
-      console.log(following[j]);
       if (userEmail === following[j]) {
         isFollowingStatus = "UNFOllOW";
       }
@@ -87,7 +80,6 @@ const Search = () => {
   };
 
   const display = (value) => {
-    console.log(value);
     userInput.value = "";
     if (value === "people") {
       followerElement.classList.remove("tab-active");
@@ -112,8 +104,6 @@ const Search = () => {
       setfollowerDisplay(true);
     }
   };
-  console.log(following);
-  console.log(followers);
 
   const updateFollowingList = () => {
     console.log(userList);
@@ -121,26 +111,18 @@ const Search = () => {
       let usersArray = [];
       if (userList) {
         for (var j = 0; j < userList.length; j++) {
-          console.log(following[j]);
-          console.log(userList[j].email);
           if (following[j] === userList[j].email) {
             usersArray.push(userList[j]);
           }
         }
-        console.log(usersArray);
       }
-
       setFollowingUsers(usersArray);
     }
-    console.log(followingUsers);
 
     if (followers) {
-      console.log(followers);
       let usersArray = [];
       if (userList) {
         for (var j = 0; j < userList.length; j++) {
-          console.log(followers[j]);
-          console.log(userList[j].email);
           for (var x = 0; x < followers.length; x++) {
             if (followers[x] === userList[j].email) {
               usersArray.push(userList[j]);
@@ -148,7 +130,6 @@ const Search = () => {
           }
         }
       }
-      console.log(usersArray);
       setFollowerUsers(usersArray);
     }
   };
@@ -164,8 +145,6 @@ const Search = () => {
           return key;
         });
         for (var j = 0; j < formattedData.length; j++) {
-          console.log(formattedData[j][1]);
-          console.log(user.email);
           if (formattedData[j][1] === user.email) {
             let userRef = database.ref(
               `profile/${userId}/following/${formattedData[j][0]}`
@@ -185,7 +164,6 @@ const Search = () => {
     displayHome(false);
     displaySearch(false);
     displayViewProfile(true);
-    console.log(user);
   };
 
   const viewProfileFollowing = (user) => {
@@ -195,7 +173,6 @@ const Search = () => {
 
   const addFriend = (user) => {
     setIsLoading(true);
-    console.log(user);
     fetch(
       `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/following.json`
     )
@@ -211,11 +188,9 @@ const Search = () => {
             }
           ).then((response) => {
             if (response.ok) {
-              console.log(`You are now following ${user.displayName}`);
               followerUserId = uneditedUserList.filter(
                 (uneditedUser) => uneditedUser[1].email === user.email
               );
-              //Add response to follower requests: Checkpoint
               fetch(
                 `https://chat-application-db-default-rtdb.firebaseio.com/profile/${followerUserId[0][0]}/followers.json`,
                 {
@@ -238,30 +213,22 @@ const Search = () => {
                   window.location.reload();
                 }, 1500);
               });
-              console.log(followerUserId[0][0]);
             } else {
               console.log(`Unable to follow ${user.displayName}`);
             }
-            console.log(uneditedUserList);
           });
         } else {
-          console.log(uneditedUserList);
-
           let yourAlreadyFollowing = false;
-
-          console.log(data);
           let users = Object.entries(data).map((key) => {
             return key;
           });
           for (var j = 0; j < users.length; j++) {
-            // console.log(user.email);
             if (user.email === users[j][1]) {
               yourAlreadyFollowing = true;
             }
           }
 
           if (yourAlreadyFollowing) {
-            console.log("Your already following this user");
             fetch(
               `https://chat-application-db-default-rtdb.firebaseio.com/profile/${userId}/following.json`
             )
@@ -271,8 +238,6 @@ const Search = () => {
                   return key;
                 });
                 for (var j = 0; j < formattedData.length; j++) {
-                  console.log(formattedData[j][1]);
-                  console.log(user.email);
                   if (formattedData[j][1] === user.email) {
                     let userRef = database.ref(
                       `profile/${userId}/following/${formattedData[j][0]}`
@@ -295,11 +260,9 @@ const Search = () => {
               }
             ).then((response) => {
               if (response.ok) {
-                console.log(`You are now following ${user.displayName}`);
                 followerUserId = uneditedUserList.filter(
                   (uneditedUser) => uneditedUser[1].email === user.email
                 );
-                //Add response to follower requests: Checkpoint
                 fetch(
                   `https://chat-application-db-default-rtdb.firebaseio.com/profile/${followerUserId[0][0]}/followers.json`,
                   {
@@ -323,8 +286,6 @@ const Search = () => {
               }
               window.location.reload();
             });
-            console.log(user.email);
-            console.log(uneditedUserList);
           }
         }
       });
@@ -335,8 +296,6 @@ const Search = () => {
       let searchString = e.target.value;
       let filter = searchString.toLowerCase();
       let userItem = userContainer.childNodes;
-      console.log(filter);
-      console.log(userItem.length);
       for (let i = 0; i < userItem.length; i++) {
         if (filter.length) {
           if (
@@ -354,23 +313,6 @@ const Search = () => {
       }
     });
   }
-
-  const filterNames = () => {
-    // filter = input.value.toUpperCase();
-    // userListContainer = document.getElementsByClassName("userList-container");
-    // Loop through all list items, and hide those who don't match the search query
-    // for (let i = 0; i < userListItem.length; i++) {
-    //   listItem = userListItem[i].querySelector(
-    //     "#user-item > div.userList-item-name > p"
-    //   );
-    //   txtValue = listItem.textContent || listItem.innerText;
-    //   if (txtValue.toUpperCase().indexOf(filter) > -1) {
-    //     userListItem[i].style.display = "";
-    //   } else {
-    //     userListItem[i].style.display = "none";
-    //   }
-    // }
-  };
 
   return (
     <div className="friends-page">

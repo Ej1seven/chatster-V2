@@ -55,7 +55,6 @@ const CreateChannel = ({ createType, setIsCreating }) => {
   const { client, setActiveChannel } = useChatContext();
   const [channelName, setChannelName] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([client.userID || ""]);
-  console.log(createType);
   const dispatch = useDispatch();
   const toggleDisplay = (value) => {
     dispatch(showActions.displayComponent(value));
@@ -79,7 +78,6 @@ const CreateChannel = ({ createType, setIsCreating }) => {
       setSelectedUsers([client.userID]);
       setActiveChannel(newChannel);
     } catch (error) {
-      console.log(error);
     }
   };
 

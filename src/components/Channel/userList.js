@@ -78,14 +78,11 @@ const UserList = ({ user, setSelectedUsers }) => {
         );
 
         if (response.users.length) {
-          console.log(response.users);
           setUsers(response.users);
         } else {
           setListEmpty(true);
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
       setLoading(false);
     };
     if (client) getUsers();
